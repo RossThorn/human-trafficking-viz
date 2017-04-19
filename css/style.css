@@ -1,0 +1,39 @@
+#mapid {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    float: left;
+    margin: 0px;
+}
+
+.header{
+  height: 50px;
+  width: 100%;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.7;
+  background-color: #447BDC;
+}
+
+#page-title{
+  font-size: 30px;
+  font-family: sans-serif;
+  color: white;
+  margin-left:20px;
+
+}
+
+.leaflet-control{
+  opacity:0.3;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #252327;
+}
+
+html, body, #mapid {
+            height: 100%;
+            width: 100%;
+        }
