@@ -2,47 +2,45 @@
 
   var attributes = [];
 
-  function createMap(){
-
-    // var southWest = L.latLng(39, -98),
-    // northEast = L.latLng(50, -79),
-    // bounds = L.latLngBounds(southWest, northEast);
-
-    //create the map
-    var map = L.map('big-map-canvas', {
-      center: [40, -125],
-      zoom: 4,
-      // maxBounds: bounds,
-      maxBoundsViscosity:.7,
-      minZoom: 4,
-      scrollWheelZoom: false
-    });
 
 
-    //add OSM base tilelayer
-    L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-      subdomains: 'abcd',
-      minZoom:2
-    }).addTo(map);
+  // var southWest = L.latLng(39, -98),
+  // northEast = L.latLng(50, -79),
+  // bounds = L.latLngBounds(southWest, northEast);
 
-    // Create necessary panes in correct order
-    // map.createPane("pointsPane");
-    // map.createPane("polygonsPane");
-
-
-    //call getData function
-    getCountryShapeData(map);
-    //         getData(map);
-    $(window).on("resize", function () { $("#big-map-canvas").height($(window).height()); map.invalidateSize(); }).trigger("resize");
-    $(document).ready(function() {$(window).resize(function() {
-      var bodyheight = $(this).height();
-      $("#page-content").height(bodyheight-70);
-    }).resize();
+  //create the map
+  var map = L.map('big-map-canvas', {
+    center: [40, -125],
+    zoom: 4,
+    // maxBounds: bounds,
+    maxBoundsViscosity:.7,
+    minZoom: 4,
+    scrollWheelZoom: false
   });
 
 
-};
+  //add OSM base tilelayer
+  L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+    subdomains: 'abcd',
+    minZoom:2
+  }).addTo(map);
+
+  // Create necessary panes in correct order
+  // map.createPane("pointsPane");
+  // map.createPane("polygonsPane");
+
+
+  //call getData function
+  getCountryShapeData(map);
+  //         getData(map);
+  $(window).on("resize", function () { $("#big-map-canvas").height($(window).height()); map.invalidateSize(); }).trigger("resize");
+  $(document).ready(function() {$(window).resize(function() {
+    var bodyheight = $(this).height();
+    $("#page-content").height(bodyheight-70);
+  }).resize();
+});
+
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -101,8 +99,18 @@ function createPolygons(data, map, attributes){
 
 };
 
+//code watches for when the user scrolls to teh first section1
+var firstSectionWatcher = scrollMonitor.create($('#section1'));
+//return statement notifying when this happens
+firstSectionWatcher.enterViewport(function () {
+  console.log('in viewport now');
+  var firstchange = map.setView(new L.LatLng(46,-94), 6, {animate: true});
+}
+);
+
+
 ///////////////////////////////////////////////////////////////////////////////
 
-$(document).ready(createMap);
+//$(document).ready(createMap);
 
 })();
