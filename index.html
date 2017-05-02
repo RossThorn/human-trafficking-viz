@@ -8,18 +8,28 @@
   <link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
 
-  </head>
-  <body>
-    <div id="wrapper">
-        <div id="big-map-canvas" class="leaflet-container leaflet-retina leaflet-fade-anim" tabindex="0"></div>
-      <article class="container">
-        <header class="center" id="intro_section">
-          <h1>TITLE</h1>
-        </header>
+</head>
+<body>
+  <div id="intro">
+    <h2>This is our Title</h2>
+    <h4>Introductory explanatory paragraph?</h4>
+  </div>
+  <div id="wrapper">
+    <div id="big-map-canvas" class="leaflet-container leaflet-retina leaflet-fade-anim" tabindex="0"></div>
+    <article class="container">
+      <header class="center" id="intro_section">
+        <h1>TITLE</h1>
+      </header>
+      <section class="graphic" id="race_section">
+        <div class="svg_graphic">
+          <h2>Section 1</h2>
+          <p>Text Text</p></div>
+        </section>
         <section class="graphic" id="race_section">
           <div class="svg_graphic">
             <h2>Section 1</h2>
-            <p>Text Text</p></div>
+            <p>Text Text</p>
+          </div>
           </section>
           <section class="graphic" id="race_section">
             <div class="svg_graphic">
@@ -33,18 +43,15 @@
               </section>
               <section class="graphic" id="race_section">
                 <div class="svg_graphic">
-                  <h2>Section 1</h2>
-                  <p>Text Text</p></div>
-                </section>
-                <section class="graphic" id="race_section">
-                  <div class="svg_graphic">
-                    <h2>For Exploration</h2>
-                    <p>Text Text</p>
-                    <div id="states">
+                  <h2>For Exploration</h2>
+                  <p>Text Text</p>
+                  <div id="states">
                   </div>
-                  </section>
+                  </div>
+                </section>
               </article>
             </div>
+        <div id="mainMap"></div>
             <script src="lib/jquery-3.1.1.js" type="text/javascript">
             </script>
             <script src="lib/leaflet/leaflet-src.js" type="text/javascript">
@@ -53,11 +60,11 @@
             </script>
             <script src="lib/leaflet/leaflet-providers.js" type="text/javascript">
             </script>
-            <script src="js/borrowed.js" type="text/javascript">
-            </script>
-            <script src="lib/bootstrap/js/bootstrap.js" type="text/javascript">
-            <script src="js/main.js" type="text/javascript">
-            </script>
-            </script>
-          </body>
-          </html>
+            <!-- <script src="js/borrowed.js" type="text/javascript">
+          </script> -->
+          <script src="lib/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+          <script src="js/main.js" type="text/javascript">
+          </script>
+        </script>
+      </body>
+      </html>

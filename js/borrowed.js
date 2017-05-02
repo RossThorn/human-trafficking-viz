@@ -25,15 +25,12 @@ function isHighDensity(){
 }
 
 var map = L.map('big-map-canvas', {
-  center: new L.LatLng(initCoords[0],initCoords[1]),
-  zoom: initZoom,
-
-  scrollWheelZoom: false,
-  zoomControl: false,
-  maxBounds: new L.LatLngBounds(
-    new L.LatLng(30.77723866322742, -122.30255126953126),
-    new L.LatLng(36.56480607840351, -111.12945556640625)
-  )
+  center: [40, -125],
+  zoom: 4,
+  // maxBounds: bounds,
+  maxBoundsViscosity:.7,
+  minZoom: 4,
+  scrollWheelZoom: false
 });
 
 // disable all the things
@@ -180,8 +177,6 @@ var hollowArea = {
   opacity: 1,
   fillOpacity: 0
 }
-
-
 
 var paddingLeft = (windowWidth >= 600) ? map.getSize().x / 2 : 0;
 var paddingTop = (windowWidth >= 600) ? 0 : 250;
