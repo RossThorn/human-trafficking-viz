@@ -36,43 +36,39 @@
     }).resize();
   });
 
-  $.ajax("data/States.geojson", {
+  $.ajax("data/Calls_2016_Random.geojson", {
     dataType: "json",
-    success: createPolygons
+    success: createHotlineDots
   });
 
-  function processPolyData(data){
-    var attributes = [];
-    //properties of the first feature in the dataset
-    var properties = data.features[0].properties;
-    //push each attribute name into attributes array
-    for (var attribute in properties){
-      //only take attributes with Rank values
-      if (attribute.indexOf("postal") > -1){
-        attributes.push(attribute);
-      };
-    };
-    return attributes;
+  //Add circle markers for point features to the map
+  function createHotlineDots(data){
+      //create a Leaflet GeoJSON layer and add it to the map
+      L.geoJson(data, {
+        pointToLayer: function(feature, latlng){
+           return pointToLayer(feature, latlng);
+
+       }
+
+     }).addTo(map);
   };
 
-  function createPolygons(data) {
-    var attributes = processPolyData(data);
-    //create a Leaflet GeoJSON layer and add it to the map
-    var polyLayer = L.geoJson(data, {
-      style: function(feature){
-        var options = {
-          fillColor: "tomato",
-          weight: .5,
-          color: "chartreuse",
-          opacity: 1,
-          fillOpacity: 0.8
-        };
-        return options;
-      },
-    });
-    var overlays = {
-      "States": polyLayer
-    };
-    L.control.layers(null,overlays,{collapsed:false}).addTo(map);
+ ///////////////////////////////////////////////////////////////////////////////
+
+ function pointToLayer(feature, latlng){
+     //create marker options
+     var options = {
+         radius: 0.5,
+         fillColor: "tomato",
+         color: "tomato",
+         weight: 1,
+         opacity: 1,
+         fillOpacity: 0.6
+     };
+
+      var layer = L.circleMarker(latlng, options);
+
+      return layer;
   };
+
 })();
