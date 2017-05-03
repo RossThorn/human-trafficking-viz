@@ -16,12 +16,12 @@
     minZoom:2
   }).addTo(map);
 
-  //code watches for when the user scrolls to teh first section1
+  //code watches for when the user scrolls to section1
   var firstSectionWatcher = scrollMonitor.create($('#section1'));
   //return statement notifying when this happens
   firstSectionWatcher.enterViewport(function () {
-    console.log('in viewport now');
-    var firstchange = map.setView(new L.LatLng(46,-94), 6, {animate: true});
+    //changes the scale and zoom location to just wisconsin
+    var firstchange = map.flyTo(new L.LatLng(46,-94), 6, {animate: true});
   });
 
   $(window).on("resize", function () {
