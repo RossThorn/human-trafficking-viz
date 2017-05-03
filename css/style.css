@@ -57,7 +57,7 @@ body {
 }
 
 #wrapper {
-  /*position:absolute;*/
+  position:absolute;
   height:100%;
   width:100%;
 }
@@ -91,7 +91,7 @@ article h1 {
   text-align: center;
 }
 
-article h2 {
+article h2, h4 {
   width: 90%;
   margin: 8px auto 2px;
   color: #fff;
