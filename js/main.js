@@ -17,9 +17,9 @@
   }).addTo(map);
 
   //code watches for when the user scrolls to section1
-  var firstSectionWatcher = scrollMonitor.create($('#section1'));
+  var whereWatcher = scrollMonitor.create($('#where'));
   //return statement notifying when this happens
-  firstSectionWatcher.enterViewport(function () {
+  whereWatcher.enterViewport(function () {
     //changes the scale and zoom location to just wisconsin
     var firstchange = map.flyTo(new L.LatLng(46,-94), 6, {animate: true});
   });
