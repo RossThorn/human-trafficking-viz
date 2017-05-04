@@ -14,7 +14,10 @@
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
     subdomains: 'abcd',
     minZoom:2
-  }).addTo(map);
+    }).addTo(map);
+
+  //add 2016 call center data to map
+  L.tileLayer('https://api.mapbox.com/styles/v1/leanneabraham/cj299g6h100022rphvjdys5u4/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGVhbm5lYWJyYWhhbSIsImEiOiJjaXVvZjVtNGEwMTBiMm9wZWgxM2NjNjJtIn0.0SuLczxyMd4gPzPVU5YD7g').addTo(map);
 
   //code watches for when the user scrolls to section1
   var whereWatcher = scrollMonitor.create($('#where'));
@@ -36,39 +39,38 @@
     }).resize();
   });
 
-  $.ajax("data/Calls_2016_Random.geojson", {
+  $.ajax("data/CircutCourts.geojson", {
     dataType: "json",
-    success: createHotlineDots
+    success: createCourts
   });
 
-  //Add circle markers for point features to the map
-  function createHotlineDots(data){
+  //Add polygons of the human trafficing district court regions
+  function createCourts(data){
       //create a Leaflet GeoJSON layer and add it to the map
       L.geoJson(data, {
         pointToLayer: function(feature, latlng){
            return pointToLayer(feature, latlng);
-
        }
 
      }).addTo(map);
   };
 
  ///////////////////////////////////////////////////////////////////////////////
-
- function pointToLayer(feature, latlng){
-     //create marker options
-     var options = {
-         radius: 0.5,
-         fillColor: "tomato",
-         color: "tomato",
-         weight: 1,
-         opacity: 1,
-         fillOpacity: 0.6
-     };
-
-      var layer = L.circleMarker(latlng, options);
-
-      return layer;
-  };
+ //
+ // function pointToLayer(feature, latlng){
+ //     //create marker options
+ //     var options = {
+ //         radius: 0.5,
+ //         fillColor: "tomato",
+ //         color: "tomato",
+ //         weight: 1,
+ //         opacity: 1,
+ //         fillOpacity: 0.6
+ //     };
+ //
+ //      var layer = L.circleMarker(latlng, options);
+ //
+ //      return layer;
+ //  };
 
 })();
