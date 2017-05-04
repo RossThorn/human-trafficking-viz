@@ -16,7 +16,7 @@
     minZoom:2
     }).addTo(map);
 
-  //add call center data to map
+  //add 2016 call center data to map
   L.tileLayer('https://api.mapbox.com/styles/v1/leanneabraham/cj299g6h100022rphvjdys5u4/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGVhbm5lYWJyYWhhbSIsImEiOiJjaXVvZjVtNGEwMTBiMm9wZWgxM2NjNjJtIn0.0SuLczxyMd4gPzPVU5YD7g').addTo(map);
 
   //code watches for when the user scrolls to section1
@@ -39,22 +39,21 @@
     }).resize();
   });
 
-  // $.ajax("data/Calls_2016_Random.geojson", {
-  //   dataType: "json",
-  //   success: createHotlineDots
-  // });
+  $.ajax("data/CircutCourts.geojson", {
+    dataType: "json",
+    success: createCourts
+  });
 
-  // //Add circle markers for point features to the map
-  // function createHotlineDots(data){
-  //     //create a Leaflet GeoJSON layer and add it to the map
-  //     L.geoJson(data, {
-  //       pointToLayer: function(feature, latlng){
-  //          return pointToLayer(feature, latlng);
-  //
-  //      }
-  //
-  //    }).addTo(map);
-  // };
+  //Add polygons of the human trafficing district court regions
+  function createCourts(data){
+      //create a Leaflet GeoJSON layer and add it to the map
+      L.geoJson(data, {
+        pointToLayer: function(feature, latlng){
+           return pointToLayer(feature, latlng);
+       }
+
+     }).addTo(map);
+  };
 
  ///////////////////////////////////////////////////////////////////////////////
  //
