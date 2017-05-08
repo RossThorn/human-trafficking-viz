@@ -12,7 +12,7 @@ body {
   position: absolute;
   z-index: -1;
 }
-/*#intro {
+#intro {
   background-image: url("../images/stripclub.jpg");
   background-position: 0% 0%;
   background-repeat: no-repeat;
@@ -25,7 +25,7 @@ body {
   color: tomato;
   height: 100vh;
   width: 100vw;
-}*/
+}
 
 #intro h2 {
   margin: 0px;
@@ -68,7 +68,7 @@ body {
 }
 
 #exploration {
-  height:100vh;
+  height:95vh;
 }
 
 article.container {
