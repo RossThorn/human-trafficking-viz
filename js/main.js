@@ -14,17 +14,29 @@
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
     subdomains: 'abcd',
     minZoom:2
-    }).addTo(map);
+  }).addTo(map);
 
   //add 2016 call center data to map
-  L.tileLayer('https://api.mapbox.com/styles/v1/leanneabraham/cj299g6h100022rphvjdys5u4/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGVhbm5lYWJyYWhhbSIsImEiOiJjaXVvZjVtNGEwMTBiMm9wZWgxM2NjNjJtIn0.0SuLczxyMd4gPzPVU5YD7g').addTo(map);
+  var callData2016 = L.tileLayer('https://api.mapbox.com/styles/v1/leanneabraham/cj299g6h100022rphvjdys5u4/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGVhbm5lYWJyYWhhbSIsImEiOiJjaXVvZjVtNGEwMTBiMm9wZWgxM2NjNjJtIn0.0SuLczxyMd4gPzPVU5YD7g').addTo(map);
 
   //code watches for when the user scrolls to section1
   var whereWatcher = scrollMonitor.create($('#where'));
   //return statement notifying when this happens
   whereWatcher.enterViewport(function () {
     //changes the scale and zoom location to just wisconsin
-    var firstchange = map.flyTo(new L.LatLng(46,-94), 6, {animate: true});
+    map.flyTo(new L.LatLng(46,-94), 6, {animate: true});
+    callData2016.addTo(map);
+  });
+
+  //adds map layers when final section is in view
+  var exploreWatcher = scrollMonitor.create($('#exploration'));
+  //return statement notifying when this happens
+  exploreWatcher.enterViewport (function () {
+    console.log("this");
+    //changes the scale and zoom location to continental US
+    map.flyTo(new L.LatLng( 40, -125), 4, {animate: true});
+    callData2016.remove();
+    addPolygons ();
   });
 
   $(window).on("resize", function () {
@@ -39,38 +51,83 @@
     }).resize();
   });
 
-  $.ajax("data/CircutCourts.geojson", {
-    dataType: "json",
-    success: createCourts
-  });
+function addPolygons (){
+  exploreWatcher.enterViewport(function () {
+    //Add circuit court data to map
+    $.ajax("data/CircutCourts.geojson", {
+      dataType: "json",
+      success: createCourts
+    });
+    //Add circuit court data to map
+    $.ajax("data/Judicial_Districts_Dissolved.geojson", {
+      dataType: "json",
+      success: createDistricts
+    });
+  }
+)};
 
   //Add polygons of the human trafficing district court regions
-  function createCourts(data){
-      //create a Leaflet GeoJSON layer and add it to the map
-      L.geoJson(data, {
-        pointToLayer: function(feature, latlng){
-           return pointToLayer(feature, latlng);
-       }
-
-     }).addTo(map);
+  function createCourts(courts){
+    //create a Leaflet GeoJSON layer and add it to the map
+    var circutCourts = L.geoJson(courts, {
+      style: style
+    }).addTo(map);
   };
 
- ///////////////////////////////////////////////////////////////////////////////
- //
- // function pointToLayer(feature, latlng){
- //     //create marker options
- //     var options = {
- //         radius: 0.5,
- //         fillColor: "tomato",
- //         color: "tomato",
- //         weight: 1,
- //         opacity: 1,
- //         fillOpacity: 0.6
- //     };
- //
- //      var layer = L.circleMarker(latlng, options);
- //
- //      return layer;
- //  };
+  //Add polygons of the human trafficing district court regions
+  function createDistricts(districts){
+    //create a Leaflet GeoJSON layer and add it to the map
+    var courtDistricts = L.geoJson(districts, {
+      style: style
+    }).addTo(map);
+  };
+
+  //creates styles for use in the two court layers
+  function style(data) {
+    if (typeof data.properties.JD_NAME === 'undefined'){
+              return {
+                  weight: .75,
+                  opacity: 1,
+                  color: 'white',
+                  fillOpacity: 0,
+                  fillColor: 'black'
+              };
+          } else {
+              return {
+                  weight: .25,
+                  opacity: 1,
+                  color: 'tomato',
+                  //this fill opacity will need to be set based on a function that determines opacity by returning a number between 1 and 0
+                  fillOpacity: .25,
+                  fillColor: 'tomato'
+              };
+          }
+        }
+
+  // //style court boundaries
+  // function (createDistricts){
+  //   if(feature.properties.PARTY === 'Democrat'){
+  //       return {color: 'blue', weight: 2 };
+  //     } else if(feature.properties.PARTY === 'Republican'){
+  //       return { color: 'red', weight: 2 }
+  // };
+
+  ///////////////////////////////////////////////////////////////////////////////
+  //
+  // function pointToLayer(feature, latlng){
+  //     //create marker options
+      // var options = {
+      //     radius: 0.5,
+      //     fillColor: "tomato",
+      //     color: "tomato",
+      //     weight: 1,
+      //     opacity: 1,
+      //     fillOpacity: 0.6
+      // };
+
+  //      var layer = L.circleMarker(latlng, options);
+  //
+  //      return layer;
+  //  };
 
 })();
