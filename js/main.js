@@ -26,13 +26,13 @@
     //changes the scale and zoom location to just wisconsin
     map.flyTo(new L.LatLng(46,-94), 6, {animate: true});
     callData2016.addTo(map);
+    addPolygons ();
   });
 
   //adds map layers when final section is in view
   var exploreWatcher = scrollMonitor.create($('#exploration'));
   //return statement notifying when this happens
   exploreWatcher.enterViewport (function () {
-    console.log("this");
     //changes the scale and zoom location to continental US
     map.flyTo(new L.LatLng( 40, -125), 4, {animate: true});
     callData2016.remove();
@@ -51,8 +51,7 @@
     }).resize();
   });
 
-function addPolygons (){
-  exploreWatcher.enterViewport(function () {
+  function addPolygons (){
     //Add circuit court data to map
     $.ajax("data/CircutCourts.geojson", {
       dataType: "json",
@@ -63,46 +62,72 @@ function addPolygons (){
       dataType: "json",
       success: createDistricts
     });
-  }
-)};
+  };
+
+  var circutCourts, courtDistricts;
 
   //Add polygons of the human trafficing district court regions
   function createCourts(courts){
-    //create a Leaflet GeoJSON layer and add it to the map
-    var circutCourts = L.geoJson(courts, {
-      style: style
-    }).addTo(map);
+    if (exploreWatcher.isInViewport === true) {
+      //console.log("true")
+      //create a Leaflet GeoJSON layer and add it to the map
+      circutCourts = L.geoJson(courts, {
+        style: style
+      }).addTo(map);
+    } else if (typeof circutCourts != 'undefined') {
+
+          circutCourts.remove();
+
+      }
   };
+
 
   //Add polygons of the human trafficing district court regions
   function createDistricts(districts){
-    //create a Leaflet GeoJSON layer and add it to the map
-    var courtDistricts = L.geoJson(districts, {
-      style: style
-    }).addTo(map);
+    if (exploreWatcher.isInViewport === true) {
+      //create a Leaflet GeoJSON layer and add it to the map
+      courtDistricts = L.geoJson(districts, {
+        style: style
+      }).addTo(map);
+
+    } else if  (typeof courtDistricts != 'undefined'){
+      courtDistricts.remove();
+    }
   };
 
   //creates styles for use in the two court layers
   function style(data) {
+    joiningData(data);
     if (typeof data.properties.JD_NAME === 'undefined'){
-              return {
-                  weight: .75,
-                  opacity: 1,
-                  color: 'white',
-                  fillOpacity: 0,
-                  fillColor: 'black'
-              };
-          } else {
-              return {
-                  weight: .25,
-                  opacity: 1,
-                  color: 'tomato',
-                  //this fill opacity will need to be set based on a function that determines opacity by returning a number between 1 and 0
-                  fillOpacity: .25,
-                  fillColor: 'tomato'
-              };
-          }
-        }
+      return {
+        weight: .75,
+        opacity: 1,
+        color: 'white',
+        fillOpacity: 0,
+        fillColor: 'black'
+      };
+    } else {
+      return {
+        weight: .25,
+        opacity: 1,
+        color: 'tomato',
+        //this fill opacity will need to be set based on a function that determines opacity by returning a number between 1 and 0
+        fillOpacity: .25,
+        fillColor: 'tomato'
+      };
+    }
+  }
+
+  //call csv data to join
+  $.ajax("data/HumanTrafficking_CLDB.csv", {
+    //dataType: "text",
+    success: joiningData
+  });
+
+  //joining data to court district polygons
+  function joiningData (data){
+    //console.log(data);
+  };
 
   // //style court boundaries
   // function (createDistricts){
@@ -116,14 +141,14 @@ function addPolygons (){
   //
   // function pointToLayer(feature, latlng){
   //     //create marker options
-      // var options = {
-      //     radius: 0.5,
-      //     fillColor: "tomato",
-      //     color: "tomato",
-      //     weight: 1,
-      //     opacity: 1,
-      //     fillOpacity: 0.6
-      // };
+  // var options = {
+  //     radius: 0.5,
+  //     fillColor: "tomato",
+  //     color: "tomato",
+  //     weight: 1,
+  //     opacity: 1,
+  //     fillOpacity: 0.6
+  // };
 
   //      var layer = L.circleMarker(latlng, options);
   //
