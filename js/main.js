@@ -16,6 +16,12 @@
     minZoom:2
   }).addTo(map);
 
+  //create section watchers
+  var exploreWatcher = scrollMonitor.create($('#exploration'));
+  //code watches for when the user scrolls to section1
+  var whereWatcher = scrollMonitor.create($('#where'));
+
+
   //add 2016 call center data to map
   var callData2016 = L.tileLayer('https://api.mapbox.com/styles/v1/leanneabraham/cj299g6h100022rphvjdys5u4/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGVhbm5lYWJyYWhhbSIsImEiOiJjaXVvZjVtNGEwMTBiMm9wZWgxM2NjNjJtIn0.0SuLczxyMd4gPzPVU5YD7g').addTo(map);
 
@@ -28,39 +34,45 @@
 
   function callback (error, caseStories, districts, courts){
     console.log(caseStories[1].CourtJoinName);
+
+    //return statement notifying when this happens
+    whereWatcher.enterViewport(function () {
+      //changes the scale and zoom location to just wisconsin
+      map.flyTo(new L.LatLng(46,-94), 6, {animate: true});
+      callData2016.addTo(map);
+      createCourts(courts);
+      createDistricts(districts);
+    });
+
+    //adds map layers when final section is in view
+    //return statement notifying when this happens
+    exploreWatcher.enterViewport (function () {
+      //changes the scale and zoom location to continental US
+      map.flyTo(new L.LatLng( 40, -125), 4, {animate: true});
+      callData2016.remove();
+      createCourts(courts);
+      createDistricts(districts);
+    });
   };
 
-  //code watches for when the user scrolls to section1
-  var whereWatcher = scrollMonitor.create($('#where'));
-  //return statement notifying when this happens
-  whereWatcher.enterViewport(function () {
-    //changes the scale and zoom location to just wisconsin
-    map.flyTo(new L.LatLng(46,-94), 6, {animate: true});
-    callData2016.addTo(map);
-    //addPolygons ();
-  });
+  //joining data to court district polygons
+  function joiningData (caseStories, districts, courts){
+    console.log(data);
+    console.log(courts);
+  };
 
-  //adds map layers when final section is in view
-  var exploreWatcher = scrollMonitor.create($('#exploration'));
-  //return statement notifying when this happens
-  exploreWatcher.enterViewport (function () {
-    //changes the scale and zoom location to continental US
-    map.flyTo(new L.LatLng( 40, -125), 4, {animate: true});
-    callData2016.remove();
-    //addPolygons ();
-  });
-
-  $(window).on("resize", function () {
-    $("#big-map-canvas").height($(window).height());
-    map.invalidateSize();
-  }).trigger("resize");
-
-  $(document).ready(function() {
-    $(window).resize(function() {
-      var bodyheight = $(this).height();
-      $("#page-content").height(bodyheight-70);
-    }).resize();
-  });
+//I'm not sure what this does or if we need it
+  // $(window).on("resize", function () {
+  //   $("#big-map-canvas").height($(window).height());
+  //   map.invalidateSize();
+  // }).trigger("resize");
+  //
+  // $(document).ready(function() {
+  //   $(window).resize(function() {
+  //     var bodyheight = $(this).height();
+  //     $("#page-content").height(bodyheight-70);
+  //   }).resize();
+  // });
 
   // function addPolygons (){
   //   //Add circuit court data to map
@@ -127,16 +139,5 @@
       };
     }
   }
-
-  //call csv data to join
-  $.ajax("data/CLDB.json", {
-    dataType: "json",
-    success: joiningData
-  });
-
-  //joining data to court district polygons
-  function joiningData (data, courts){
-    console.log(data[0].CourtJoinName);
-  };
 
 })();
