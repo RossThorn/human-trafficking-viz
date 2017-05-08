@@ -19,6 +19,17 @@
   //add 2016 call center data to map
   var callData2016 = L.tileLayer('https://api.mapbox.com/styles/v1/leanneabraham/cj299g6h100022rphvjdys5u4/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGVhbm5lYWJyYWhhbSIsImEiOiJjaXVvZjVtNGEwMTBiMm9wZWgxM2NjNjJtIn0.0SuLczxyMd4gPzPVU5YD7g').addTo(map);
 
+  //use d3.queue to parallelize asynchronous data loading
+  d3.queue()
+  .defer(d3.csv, "data/HumanTrafficking_CLDB.csv")
+  .defer(d3.json, "data/Judicial_Districts_Dissolved.geojson")
+  .defer(d3.json, "data/CircutCourts.geojson")
+  .await(callback);
+
+  function callback (error, caseStories, districts, courts){
+    console.log(caseStories[1].CourtJoinName);
+  };
+
   //code watches for when the user scrolls to section1
   var whereWatcher = scrollMonitor.create($('#where'));
   //return statement notifying when this happens
@@ -26,7 +37,7 @@
     //changes the scale and zoom location to just wisconsin
     map.flyTo(new L.LatLng(46,-94), 6, {animate: true});
     callData2016.addTo(map);
-    addPolygons ();
+    //addPolygons ();
   });
 
   //adds map layers when final section is in view
@@ -36,7 +47,7 @@
     //changes the scale and zoom location to continental US
     map.flyTo(new L.LatLng( 40, -125), 4, {animate: true});
     callData2016.remove();
-    addPolygons ();
+    //addPolygons ();
   });
 
   $(window).on("resize", function () {
@@ -51,25 +62,24 @@
     }).resize();
   });
 
-  function addPolygons (){
-    //Add circuit court data to map
-    $.ajax("data/CircutCourts.geojson", {
-      dataType: "json",
-      success: createCourts
-    });
-    //Add circuit court data to map
-    $.ajax("data/Judicial_Districts_Dissolved.geojson", {
-      dataType: "json",
-      success: createDistricts
-    });
-  };
+  // function addPolygons (){
+  //   //Add circuit court data to map
+  //   $.ajax("data/CircutCourts.geojson", {
+  //     dataType: "json",
+  //     success: createCourts
+  //   });
+  //   //Add circuit court data to map
+  //   $.ajax("data/Judicial_Districts_Dissolved.geojson", {
+  //     dataType: "json",
+  //     success: createDistricts
+  //   });
+  // };
 
   var circutCourts, courtDistricts;
 
   //Add polygons of the human trafficing district court regions
   function createCourts(courts){
     if (exploreWatcher.isInViewport === true) {
-      //console.log("true")
       //create a Leaflet GeoJSON layer and add it to the map
       circutCourts = L.geoJson(courts, {
         style: style
@@ -125,8 +135,8 @@
   });
 
   //joining data to court district polygons
-  function joiningData (data){
-    console.log(data[1].CourtJoinName);
+  function joiningData (data, courts){
+    console.log(data[0].CourtJoinName);
   };
 
 })();
