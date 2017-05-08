@@ -76,9 +76,9 @@
       }).addTo(map);
     } else if (typeof circutCourts != 'undefined') {
 
-          circutCourts.remove();
+      circutCourts.remove();
 
-      }
+    }
   };
 
 
@@ -97,7 +97,7 @@
 
   //creates styles for use in the two court layers
   function style(data) {
-    joiningData(data);
+
     if (typeof data.properties.JD_NAME === 'undefined'){
       return {
         weight: .75,
@@ -119,40 +119,14 @@
   }
 
   //call csv data to join
-  $.ajax("data/HumanTrafficking_CLDB.csv", {
-    //dataType: "text",
+  $.ajax("data/CLDB.json", {
+    dataType: "json",
     success: joiningData
   });
 
   //joining data to court district polygons
   function joiningData (data){
-    //console.log(data);
+    console.log(data[1].CourtJoinName);
   };
-
-  // //style court boundaries
-  // function (createDistricts){
-  //   if(feature.properties.PARTY === 'Democrat'){
-  //       return {color: 'blue', weight: 2 };
-  //     } else if(feature.properties.PARTY === 'Republican'){
-  //       return { color: 'red', weight: 2 }
-  // };
-
-  ///////////////////////////////////////////////////////////////////////////////
-  //
-  // function pointToLayer(feature, latlng){
-  //     //create marker options
-  // var options = {
-  //     radius: 0.5,
-  //     fillColor: "tomato",
-  //     color: "tomato",
-  //     weight: 1,
-  //     opacity: 1,
-  //     fillOpacity: 0.6
-  // };
-
-  //      var layer = L.circleMarker(latlng, options);
-  //
-  //      return layer;
-  //  };
 
 })();
