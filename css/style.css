@@ -155,7 +155,7 @@ footer {
     margin-top: 200px;
     background: none;
     width: 100%;
-    opacity: 0.95;
+    opacity: 0.9;
   }
 
   article.container header, article.container section, article.container aside {
@@ -181,3 +181,4 @@ footer {
   .leaflet-control-attribution, .leaflet-control-zoom {
     display: none;
   }
+}
