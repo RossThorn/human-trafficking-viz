@@ -33,7 +33,6 @@
   .await(callback);
 
   function callback (error, caseStories, districts, courts){
-    console.log(caseStories[1].CourtJoinName);
 
     //return statement notifying when this happens
     whereWatcher.enterViewport(function () {
@@ -53,91 +52,88 @@
       createCourts(courts);
       createDistricts(districts);
     });
-  };
 
-  //joining data to court district polygons
-  function joiningData (caseStories, districts, courts){
-    console.log(data);
-    console.log(courts);
-  };
-
-//I'm not sure what this does or if we need it
-  // $(window).on("resize", function () {
-  //   $("#big-map-canvas").height($(window).height());
-  //   map.invalidateSize();
-  // }).trigger("resize");
-  //
-  // $(document).ready(function() {
-  //   $(window).resize(function() {
-  //     var bodyheight = $(this).height();
-  //     $("#page-content").height(bodyheight-70);
-  //   }).resize();
-  // });
-
-  // function addPolygons (){
-  //   //Add circuit court data to map
-  //   $.ajax("data/CircutCourts.geojson", {
-  //     dataType: "json",
-  //     success: createCourts
-  //   });
-  //   //Add circuit court data to map
-  //   $.ajax("data/Judicial_Districts_Dissolved.geojson", {
-  //     dataType: "json",
-  //     success: createDistricts
-  //   });
-  // };
-
-  var circutCourts, courtDistricts;
-
-  //Add polygons of the human trafficing district court regions
-  function createCourts(courts){
-    if (exploreWatcher.isInViewport === true) {
-      //create a Leaflet GeoJSON layer and add it to the map
-      circutCourts = L.geoJson(courts, {
-        style: style
-      }).addTo(map);
-    } else if (typeof circutCourts != 'undefined') {
-
-      circutCourts.remove();
-
-    }
-  };
-
-
-  //Add polygons of the human trafficing district court regions
-  function createDistricts(districts){
-    if (exploreWatcher.isInViewport === true) {
-      //create a Leaflet GeoJSON layer and add it to the map
-      courtDistricts = L.geoJson(districts, {
-        style: style
-      }).addTo(map);
-
-    } else if  (typeof courtDistricts != 'undefined'){
-      courtDistricts.remove();
-    }
-  };
-
-  //creates styles for use in the two court layers
-  function style(data) {
-
-    if (typeof data.properties.JD_NAME === 'undefined'){
-      return {
-        weight: .75,
-        opacity: 1,
-        color: 'white',
-        fillOpacity: 0,
-        fillColor: 'black'
+    //joining data to court district polygons
+    for (var k = 0; k < districts.features.length; k++) {
+      districts.features[k].properties.cases = []
+      var allDistricts = districts.features[k];
+      var jdName = allDistricts.properties.JD_NAME;
+        //loop over every row in the csv
+        for (var i = 0; i < caseStories.length; i++) {
+          var story = caseStories[i];
+          //make all keyfield names in csv into a single variable
+          var allCourts = story.CourtJoinName;
+          if (allCourts === jdName) {
+            //push the stories to the district polygons
+            allDistricts.properties.cases.push(story);
+          };
+        };
       };
-    } else {
-      return {
-        weight: .25,
-        opacity: 1,
-        color: 'tomato',
-        //this fill opacity will need to be set based on a function that determines opacity by returning a number between 1 and 0
-        fillOpacity: .25,
-        fillColor: 'tomato'
-      };
-    }
-  }
+      console.log(districts.features[13].properties.cases[0].Court);
+    };
 
-})();
+    //I'm not sure what this does or if we need it
+    // $(window).on("resize", function () {
+    //   $("#big-map-canvas").height($(window).height());
+    //   map.invalidateSize();
+    // }).trigger("resize");
+    //
+    // $(document).ready(function() {
+    //   $(window).resize(function() {
+    //     var bodyheight = $(this).height();
+    //     $("#page-content").height(bodyheight-70);
+    //   }).resize();
+    // });
+
+    var circutCourts, courtDistricts;
+
+    //Add polygons of the human trafficing district court regions
+    function createCourts(courts){
+      if (exploreWatcher.isInViewport === true) {
+        //create a Leaflet GeoJSON layer and add it to the map
+        circutCourts = L.geoJson(courts, {
+          style: style
+        }).addTo(map);
+      } else if (exploreWatcher.isInViewport === false) {
+        circutCourts.remove();
+      }
+    };
+
+
+    //Add polygons of the human trafficing district court regions
+    function createDistricts(districts){
+      if (exploreWatcher.isInViewport === true) {
+        //create a Leaflet GeoJSON layer and add it to the map
+        courtDistricts = L.geoJson(districts, {
+          style: style
+        }).addTo(map);
+
+      } else if  (typeof courtDistricts != 'undefined'){
+        courtDistricts.remove();
+      }
+    };
+
+    //creates styles for use in the two court layers
+    function style(data) {
+
+      if (typeof data.properties.JD_NAME === 'undefined'){
+        return {
+          weight: .75,
+          opacity: 1,
+          color: 'white',
+          fillOpacity: 0,
+          fillColor: 'black'
+        };
+      } else {
+        return {
+          weight: .25,
+          opacity: 1,
+          color: 'tomato',
+          //this fill opacity will need to be set based on a function that determines opacity by returning a number between 1 and 0
+          fillOpacity: .25,
+          fillColor: 'tomato'
+        };
+      }
+    }
+
+  })();
