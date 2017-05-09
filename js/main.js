@@ -94,7 +94,7 @@
         circutCourts = L.geoJson(courts, {
           style: style
         }).addTo(map);
-      } else if (exploreWatcher.isInViewport === false) {
+      } else if (typeof circutCourts != 'undefined') {
         circutCourts.remove();
       }
     };
