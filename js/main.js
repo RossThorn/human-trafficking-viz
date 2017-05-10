@@ -52,7 +52,7 @@
       createCourts(courts);
       createDistricts(districts);
     });
-
+    
     //joining data to court district polygons
     for (var k = 0; k < districts.features.length; k++) {
       districts.features[k].properties.cases = []
