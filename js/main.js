@@ -69,8 +69,21 @@
           };
         };
       };
-      console.log(districts.features[13].properties.cases[0].Court);
+      createDropdowns (caseStories, districts, courts);
     };
+
+    //creates the dropdowns and check boxes for exploration
+      function createDropdowns (caseStories, districts, courts) {
+        console.log(districts.properties);
+        var k = 0; k < districts.features.length; k++
+          console.log(districts.features[k].properties.cases);
+        //var states =
+        //create a dropdown menu for attribute selection
+        //add select element
+        var dropdown = d3.select("#statesDropdown")
+        .append("select")
+        .attr("class", "dropdown")
+      };
 
     //I'm not sure what this does or if we need it
     // $(window).on("resize", function () {
