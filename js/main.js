@@ -58,95 +58,113 @@
       districts.features[k].properties.cases = []
       var allDistricts = districts.features[k];
       var jdName = allDistricts.properties.JD_NAME;
-        //loop over every row in the csv
-        for (var i = 0; i < caseStories.length; i++) {
-          var story = caseStories[i];
-          //make all keyfield names in csv into a single variable
-          var allCourts = story.CourtJoinName;
-          if (allCourts === jdName) {
-            //push the stories to the district polygons
-            allDistricts.properties.cases.push(story);
-          };
+      //loop over every row in the csv
+      for (var i = 0; i < caseStories.length; i++) {
+        var story = caseStories[i];
+        //make all keyfield names in csv into a single variable
+        var allCourts = story.CourtJoinName;
+        if (allCourts === jdName) {
+          //push the stories to the district polygons
+          allDistricts.properties.cases.push(story);
         };
       };
-      createDropdowns (caseStories, districts, courts);
     };
+    createDropdowns (caseStories, districts, courts);
+  };
 
-    //creates the dropdowns and check boxes for exploration
-      function createDropdowns (caseStories, districts, courts) {
-        console.log(districts.properties);
-        var k = 0; k < districts.features.length; k++
-          console.log(districts.features[k].properties.cases);
-        //var states =
-        //create a dropdown menu for attribute selection
-        //add select element
-        var dropdown = d3.select("#statesDropdown")
-        .append("select")
-        .attr("class", "dropdown")
-      };
+  //creates the dropdowns and check boxes for exploration
+  function createDropdowns (caseStories, districts, courts) {
+    for (var k = 0; k < districts.features.length; k++) {
+    var data = districts.features[k].properties.JD_NAME;
+console.log(data);
+}
+    var select = d3.select('#statesDropdown')
+    .append('input')
+    .attr('class','input')
+    .on('change',onchange)
 
-    //I'm not sure what this does or if we need it
-    // $(window).on("resize", function () {
-    //   $("#big-map-canvas").height($(window).height());
-    //   map.invalidateSize();
-    // }).trigger("resize");
-    //
-    // $(document).ready(function() {
-    //   $(window).resize(function() {
-    //     var bodyheight = $(this).height();
-    //     $("#page-content").height(bodyheight-70);
-    //   }).resize();
+    var options = select
+    .selectAll('option')
+    .data(data).enter()
+    .append('option')
+    .attr("value", function(a){
+
+      return a;})
+    // .text(function(d){
+    //   return abbreviations(d);
     // });
 
-    var circutCourts, courtDistricts;
-
-    //Add polygons of the human trafficing district court regions
-    function createCourts(courts){
-      if (exploreWatcher.isInViewport === true) {
-        //create a Leaflet GeoJSON layer and add it to the map
-        circutCourts = L.geoJson(courts, {
-          style: style
-        }).addTo(map);
-      } else if (typeof circutCourts != 'undefined') {
-        circutCourts.remove();
-      }
+    function onchange() {
+      var selectValue = d3.select('select').property('value')
+      d3.select('#statesDropdown')
+      .append('p')
+      .text(selectValue + ' is the last selected option.')
     };
+  
+  };
 
+  //I'm not sure what this does or if we need it
+  // $(window).on("resize", function () {
+  //   $("#big-map-canvas").height($(window).height());
+  //   map.invalidateSize();
+  // }).trigger("resize");
+  //
+  // $(document).ready(function() {
+  //   $(window).resize(function() {
+  //     var bodyheight = $(this).height();
+  //     $("#page-content").height(bodyheight-70);
+  //   }).resize();
+  // });
 
-    //Add polygons of the human trafficing district court regions
-    function createDistricts(districts){
-      if (exploreWatcher.isInViewport === true) {
-        //create a Leaflet GeoJSON layer and add it to the map
-        courtDistricts = L.geoJson(districts, {
-          style: style
-        }).addTo(map);
+  var circutCourts, courtDistricts;
 
-      } else if  (typeof courtDistricts != 'undefined'){
-        courtDistricts.remove();
-      }
-    };
-
-    //creates styles for use in the two court layers
-    function style(data) {
-
-      if (typeof data.properties.JD_NAME === 'undefined'){
-        return {
-          weight: .75,
-          opacity: 1,
-          color: 'white',
-          fillOpacity: 0,
-          fillColor: 'black'
-        };
-      } else {
-        return {
-          weight: .25,
-          opacity: 1,
-          color: 'tomato',
-          //this fill opacity will need to be set based on a function that determines opacity by returning a number between 1 and 0
-          fillOpacity: .25,
-          fillColor: 'tomato'
-        };
-      }
+  //Add polygons of the human trafficing district court regions
+  function createCourts(courts){
+    if (exploreWatcher.isInViewport === true) {
+      //create a Leaflet GeoJSON layer and add it to the map
+      circutCourts = L.geoJson(courts, {
+        style: style
+      }).addTo(map);
+    } else if (typeof circutCourts != 'undefined') {
+      circutCourts.remove();
     }
+  };
 
-  })();
+
+  //Add polygons of the human trafficing district court regions
+  function createDistricts(districts){
+    if (exploreWatcher.isInViewport === true) {
+      //create a Leaflet GeoJSON layer and add it to the map
+      courtDistricts = L.geoJson(districts, {
+        style: style
+      }).addTo(map);
+
+    } else if  (typeof courtDistricts != 'undefined'){
+      courtDistricts.remove();
+    }
+  };
+
+  //creates styles for use in the two court layers
+  function style(data) {
+
+    if (typeof data.properties.JD_NAME === 'undefined'){
+      return {
+        weight: .75,
+        opacity: 1,
+        color: 'white',
+        fillOpacity: 0,
+        fillColor: 'black'
+      };
+    } else {
+      return {
+        weight: .25,
+        opacity: 1,
+        color: 'tomato',
+        //this fill opacity will need to be set based on a function that determines opacity by returning a number between 1 and 0
+        fillOpacity: .25,
+        fillColor: 'tomato'
+      };
+    }
+  }
+
+})();
