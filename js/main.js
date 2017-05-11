@@ -25,12 +25,17 @@
   //add 2016 call center data to map
   var callData2016 = L.tileLayer('https://api.mapbox.com/styles/v1/leanneabraham/cj299g6h100022rphvjdys5u4/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGVhbm5lYWJyYWhhbSIsImEiOiJjaXVvZjVtNGEwMTBiMm9wZWgxM2NjNjJtIn0.0SuLczxyMd4gPzPVU5YD7g').addTo(map);
 
+  getUserLocation();
+
+
+
   //use d3.queue to parallelize asynchronous data loading
   d3.queue()
   .defer(d3.csv, "data/HumanTrafficking_CLDB.csv")
   .defer(d3.json, "data/Judicial_Districts_Dissolved.geojson")
   .defer(d3.json, "data/CircutCourts.geojson")
   .await(callback);
+
 
   function callback (error, caseStories, districts, courts){
 
@@ -135,5 +140,25 @@
         };
       }
     }
+
+
+  function pieTween(b) {
+    b.innerRadius = 0;
+    var i = d3.interpolate({startAngle: 0, endAngle: 0}, b);
+    return function(t) {return arc(i(t));};
+  };
+
+
+function getUserLocation(){
+    //basic jQuery ajax method
+    $.ajax("http://freegeoip.net/json/", {
+        dataType: "json",
+        success: function(response){
+          console.log(response);
+          var userLocation = [response.longitude, response.latitude];
+          //Insert function to zoom to user location
+        }
+    });
+};
 
   })();
