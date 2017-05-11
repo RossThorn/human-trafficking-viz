@@ -25,9 +25,6 @@
   //add 2016 call center data to map
   var callData2016 = L.tileLayer('https://api.mapbox.com/styles/v1/leanneabraham/cj299g6h100022rphvjdys5u4/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGVhbm5lYWJyYWhhbSIsImEiOiJjaXVvZjVtNGEwMTBiMm9wZWgxM2NjNjJtIn0.0SuLczxyMd4gPzPVU5YD7g').addTo(map);
 
-  getUserLocation();
-
-
 
   //use d3.queue to parallelize asynchronous data loading
   d3.queue()
@@ -42,7 +39,8 @@
     //return statement notifying when this happens
     whereWatcher.enterViewport(function () {
       //changes the scale and zoom location to just wisconsin
-      map.flyTo(new L.LatLng(46,-94), 6, {animate: true});
+      //map.flyTo(new L.LatLng(46,-94), 6, {animate: true});
+      getUserLocation();
       callData2016.addTo(map);
       createCourts(courts);
       createDistricts(districts);
@@ -155,10 +153,18 @@ function getUserLocation(){
         dataType: "json",
         success: function(response){
           console.log(response);
-          var userLocation = [response.longitude, response.latitude];
-          //Insert function to zoom to user location
+          var userLocation = [response.latitude, response.longitude];
+          //Insert callback function to zoom to user location
+          zoomtoUser(userLocation);
         }
     });
 };
+
+function zoomtoUser(userLocation){
+    var latitude = userLocation[0];
+    var longitude = userLocation[1]-1;
+    console.log(latitude,longitude);
+    map.flyTo(new L.LatLng(latitude, longitude), 8, {animate: true});
+}
 
   })();
