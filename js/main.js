@@ -61,7 +61,7 @@
 
     //return statement notifying when this happens
     whereWatcher.enterViewport(function () {
-      //changes the scale and zoom location to just wisconsin
+      //changes the scale and zoom location to user location
       //map.flyTo(new L.LatLng(46,-94), 6, {animate: true});
       getUserLocation();
       callData2016.addTo(map);
@@ -151,8 +151,5 @@ function zoomtoUser(userLocation){
     map.flyTo(new L.LatLng(latitude, longitude), 8, {animate: true});
 }
 
-  })();
-
   };
 })();
-
