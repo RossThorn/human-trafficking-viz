@@ -34,7 +34,30 @@
   .await(callback);
 
 
+
+  //cleans up text because we entered it all manually
+  function sanitize (word) {
+    return word.toLowerCase().trim().split(' ').join('_');
+  };
+
+
   function callback (error, caseStories, districts, courts){
+    //joining data to court district polygons
+    for (var k = 0; k < districts.features.length; k++) {
+      districts.features[k].properties.cases = []
+      var allDistricts = districts.features[k];
+      var jdName = allDistricts.properties.JD_NAME;
+      //loop over every row in the csv
+      for (var i = 0; i < caseStories.length; i++) {
+        var story = caseStories[i];
+        //make all keyfield names in csv into a single variable
+        var allCourts = story.CourtJoinName;
+        if (sanitize(allCourts) === sanitize(jdName)) {
+          //push the stories to the district polygons
+          allDistricts.properties.cases.push(story);
+        };
+      };
+    };
 
     //return statement notifying when this happens
     whereWatcher.enterViewport(function () {
@@ -55,39 +78,6 @@
       createCourts(courts);
       createDistricts(districts);
     });
-
-    //joining data to court district polygons
-    for (var k = 0; k < districts.features.length; k++) {
-      districts.features[k].properties.cases = []
-      var allDistricts = districts.features[k];
-      var jdName = allDistricts.properties.JD_NAME;
-        //loop over every row in the csv
-        for (var i = 0; i < caseStories.length; i++) {
-          var story = caseStories[i];
-          //make all keyfield names in csv into a single variable
-          var allCourts = story.CourtJoinName;
-          if (allCourts === jdName) {
-            //push the stories to the district polygons
-            allDistricts.properties.cases.push(story);
-          };
-        };
-      };
-      console.log(districts.features[13].properties.cases[0].Court);
-    };
-
-    //I'm not sure what this does or if we need it
-    // $(window).on("resize", function () {
-    //   $("#big-map-canvas").height($(window).height());
-    //   map.invalidateSize();
-    // }).trigger("resize");
-    //
-    // $(document).ready(function() {
-    //   $(window).resize(function() {
-    //     var bodyheight = $(this).height();
-    //     $("#page-content").height(bodyheight-70);
-    //   }).resize();
-    // });
-
     var circutCourts, courtDistricts;
 
     //Add polygons of the human trafficing district court regions
@@ -104,7 +94,7 @@
 
 
     //Add polygons of the human trafficing district court regions
-    function createDistricts(districts){
+    function createDistricts(districts, courts){
       if (exploreWatcher.isInViewport === true) {
         //create a Leaflet GeoJSON layer and add it to the map
         courtDistricts = L.geoJson(districts, {
@@ -115,13 +105,14 @@
         courtDistricts.remove();
       }
     };
+    //find the max number of cases in a single district for the entire dataset
+    var max = d3.max(districts.features.map(function (feature) { return feature.properties.cases.length; }));
 
     //creates styles for use in the two court layers
-    function style(data) {
-
-      if (typeof data.properties.JD_NAME === 'undefined'){
+    function style(feature) {
+      if (typeof feature.properties.JD_NAME === 'undefined'){
         return {
-          weight: .75,
+          weight: 1,
           opacity: 1,
           color: 'white',
           fillOpacity: 0,
@@ -133,18 +124,11 @@
           opacity: 1,
           color: 'tomato',
           //this fill opacity will need to be set based on a function that determines opacity by returning a number between 1 and 0
-          fillOpacity: .25,
+          fillOpacity: parseFloat(feature.properties.cases.length / (max/2)),
           fillColor: 'tomato'
         };
       }
     }
-
-
-  function pieTween(b) {
-    b.innerRadius = 0;
-    var i = d3.interpolate({startAngle: 0, endAngle: 0}, b);
-    return function(t) {return arc(i(t));};
-  };
 
 
 function getUserLocation(){
@@ -168,3 +152,7 @@ function zoomtoUser(userLocation){
 }
 
   })();
+
+  };
+})();
+
