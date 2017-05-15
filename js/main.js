@@ -138,18 +138,39 @@ function getUserLocation(){
         success: function(response){
           console.log(response);
           var userLocation = [response.latitude, response.longitude];
+          var userState = response.region_name;
           //Insert callback function to zoom to user location
-          zoomtoUser(userLocation);
+          //zoomtoUser(userLocation);
+          showStateData(userState);
         }
     });
 };
 
-function zoomtoUser(userLocation){
+function zoomtoUser(userLocation, userState){
     var latitude = userLocation[0];
     var longitude = userLocation[1]-1;
-    console.log(latitude,longitude);
     map.flyTo(new L.LatLng(latitude, longitude), 8, {animate: true});
 }
+
+function showStateData(userState){
+    $.ajax("Data/StateCentroid.geojson", {
+      dataType: "json",
+      success: function(response){
+        var allStates = response.features;
+        for (var i = 0, l = allStates.length; i < l; i++){
+          var obj = allStates[i];
+          if (obj.properties["State"] == userState){
+            console.log(obj.properties);
+            console.log("You can access the user state in the geojson centroid now")
+            console.log(obj.properties["latitude"]);
+            console.log(obj.properties["longitude"]);
+            map.flyTo(new L.LatLng(obj.properties["latitude"],(obj.properties["longitude"]-5)), 6, {animate: true});
+          }
+
+        }
+      }
+    });
+};
 
   };
 })();
