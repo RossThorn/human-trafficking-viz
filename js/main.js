@@ -184,7 +184,7 @@ function displayStateStatistics(userState){
                         .append("div")
                         .attr("class","stats")
                         .append("p")
-                        .html("There were "+obj.calls+" calls and "+obj.cases+" trafficking cases reported in "+userState+" from 2012 to 2016.");
+                        .html("There were <span id='stats'>"+obj.calls+" calls </span> and <span id='stats'>"+obj.cases+" trafficking cases</span> reported in "+userState+" from 2012 to 2016.");
       }
     };
   });
