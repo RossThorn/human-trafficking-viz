@@ -141,7 +141,7 @@ function getUserLocation(){
           var userState = response.region_name;
           //Insert callback function to zoom to user location
           //zoomtoUser(userLocation);
-          showStateData(userState);
+          zoomToUserState(userState);
         }
     });
 };
@@ -152,7 +152,7 @@ function zoomtoUser(userLocation, userState){
     map.flyTo(new L.LatLng(latitude, longitude), 8, {animate: true});
 }
 
-function showStateData(userState){
+function zoomToUserState(userState){
     $.ajax("Data/StateCentroid.geojson", {
       dataType: "json",
       success: function(response){
@@ -160,16 +160,35 @@ function showStateData(userState){
         for (var i = 0, l = allStates.length; i < l; i++){
           var obj = allStates[i];
           if (obj.properties["State"] == userState){
-            console.log(obj.properties);
-            console.log("You can access the user state in the geojson centroid now")
-            console.log(obj.properties["latitude"]);
-            console.log(obj.properties["longitude"]);
+            console.log("You can access the user state in the geojson centroid now");
             map.flyTo(new L.LatLng(obj.properties["latitude"],(obj.properties["longitude"]-5)), 6, {animate: true});
-          }
+            displayStateStatistics(userState);
+          } else {
+            //insert function that shows national statistics or example state
+          };
 
-        }
+        };
       }
     });
+};
+
+function displayStateStatistics(userState){
+  var csvStates = d3.csv("data/TotalCallsCases.csv", function(data){
+
+    for (var i = 0, l = data.length; i < l; i++){
+      var obj = data[i];
+
+      if (obj.state == userState){
+        console.log(userState);
+        var stateStats = d3.select("#where")
+                        .append("div")
+                        .attr("class","stats")
+                        .append("p")
+                        .html("There were "+obj.calls+" calls and "+obj.cases+" trafficking cases reported in "+userState+" from 2012 to 2016.");
+      }
+    };
+  });
+
 };
 
   };
