@@ -64,10 +64,7 @@
     whereWatcher.enterViewport(function () {
       //changes the scale and zoom location to user location
       //map.flyTo(new L.LatLng(46,-94), 6, {animate: true});
-      if (pageCheck == 0){
-        getUserLocation();
-        pageCheck = 1;
-      };
+      getUserLocation();
       callData2016.addTo(map);
       createCourts(courts);
       createDistricts(districts);
@@ -167,7 +164,10 @@ function zoomToUserState(userState){
           if (obj.properties["State"] == userState){
             console.log("You can access the user state in the geojson centroid now");
             map.flyTo(new L.LatLng(obj.properties["latitude"],(obj.properties["longitude"]-5)), 6, {animate: true});
-            displayStateStatistics(userState);
+            if (pageCheck == 0){
+              displayStateStatistics(userState);
+              pageCheck = 1;
+            };
           } else {
             //insert function that shows national statistics or example state
           };
@@ -178,7 +178,8 @@ function zoomToUserState(userState){
 };
 
 function displayStateStatistics(userState){
-  var csvStates = d3.csv("data/TotalCallsCases.csv", function(data){
+  console.log(userState);
+  var csvStates = d3.csv("Data/TotalCallsCases.csv", function(data){
 
     for (var i = 0, l = data.length; i < l; i++){
       var obj = data[i];
