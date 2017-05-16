@@ -8,6 +8,9 @@
     maxBoundsViscosity:.7,
     minZoom: 4,
     scrollWheelZoom: false
+    if (window.innerwidth<600){
+      center: [40, -100],
+    }
   });
 
   //add OSM base tilelayer
