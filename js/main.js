@@ -138,7 +138,7 @@
 function getUserLocation(){
     console.log("fired");
     //basic jQuery ajax method
-    $.ajax("http://freegeoip.net/json/", {
+    $.ajax("https://freegeoip.net/json/", {
         dataType: "json",
         success: function(response){
           console.log(response);
