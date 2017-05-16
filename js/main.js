@@ -252,6 +252,7 @@ function zoomToUserState(userState){
         }
 
         if (loopCheck == 0){
+          map.flyTo(new L.LatLng( 44, -90), 6, {animate: true});
           var proxyState = "Wisconsin";
           displayStateStatistics(proxyState);
           pageCheck = 1;
