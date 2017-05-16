@@ -1,6 +1,6 @@
 (function(){
   var pageCheck = 0;
-
+  var loopCheck = 0;
   var map = L.map('big-map-canvas', {
     center: [40, -125],
     zoom: 4,
@@ -133,14 +133,14 @@
 
 
 function getUserLocation(){
-    console.log("fired");
     //basic jQuery ajax method
     $.ajax("https://freegeoip.net/json/", {
         dataType: "json",
         success: function(response){
-          console.log(response);
+          //console.log(response);
           var userLocation = [response.latitude, response.longitude];
           var userState = response.region_name;
+          //console.log(userState);
           //Insert callback function to zoom to user location
           //zoomtoUser(userLocation);
           zoomToUserState(userState);
@@ -166,17 +166,18 @@ function zoomToUserState(userState){
             if (pageCheck == 0){
             displayStateStatistics(userState);
               pageCheck = 1;
+              loopCheck = 1;
             };
-          } else {
-            if (pageCheck == 0){
-              var proxyState = "Wisconsin";
-              displayStateStatistics(proxyState);
-              pageCheck = 1;
-            };
-
           };
+        }
 
+        if (loopCheck == 0){
+          var proxyState = "Wisconsin";
+          displayStateStatistics(proxyState);
+          pageCheck = 1;
+          loopCheck = 1;
         };
+
       }
     });
 };
