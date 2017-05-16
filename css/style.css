@@ -68,9 +68,11 @@ body {
 }
 
 #exploration {
-  height:95vh;
+  height:50vh;
 }
-
+#stats {
+  color: tomato;
+}
 article.container {
   margin: 0;
   background: #414142;
@@ -147,10 +149,18 @@ footer {
   color: #d8d8d8;
 }
 
-#mainMap {
-  height: 50px;
-}
-@media(max-width: 500px) {
+@media(max-width: 600px) {
+  .container{
+    height: 50vh;
+    position: absolute;
+    bottom: 0px;
+    overflow: scroll;
+  }
+  #big-map-canvas {
+    height: 50vh;
+    position: absolute;
+    top: 0px;
+  }
   article.container {
     margin-top: 200px;
     background: none;
@@ -189,6 +199,7 @@ footer {
   font-size: 40px;
 }
 
-#stats {
-  color: tomato;
+#active-cases {
+  height: 40vh;
+  overflow-y: scroll;
 }
