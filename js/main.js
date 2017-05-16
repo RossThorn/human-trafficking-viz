@@ -169,7 +169,8 @@ function zoomToUserState(userState){
               pageCheck = 1;
             };
           } else {
-            //insert function that shows national statistics or example state
+            userState = "Wisconsin";
+            displayStateStatistics(userState);
           };
 
         };
