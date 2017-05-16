@@ -2,16 +2,20 @@
   var pageCheck = 0;
 
   var map = L.map('big-map-canvas', {
-    center: [40, -125],
+    //center: mapCenter,
+    center: [40, -100],
     zoom: 4,
     // maxBounds: bounds,
     maxBoundsViscosity:.7,
     minZoom: 4,
     scrollWheelZoom: false
-    if (window.innerwidth<600){
-      center: [40, -100],
-    }
   });
+  // function mapCenter () {
+  //   if (window.innerwidth<600){
+  //     center: [40, -100];
+  //   } else {center: [40, -125];
+  // }
+  // };
 
   //add OSM base tilelayer
   L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
@@ -62,6 +66,7 @@
         };
       };
     };
+    console.log(districts);
 
     //return statement notifying when this happens
     whereWatcher.enterViewport(function () {
@@ -72,8 +77,8 @@
         pageCheck = 1;
       };
       callData2016.addTo(map);
-      createCourts(courts);
-      createDistricts(districts);
+      createCourts();
+      createDistricts();
     });
 
     //adds map layers when final section is in view
@@ -82,15 +87,57 @@
       //changes the scale and zoom location to continental US
       map.flyTo(new L.LatLng( 40, -125), 4, {animate: true});
       callData2016.remove();
-      createCourts(courts);
-      createDistricts(districts);
+      createCourts();
+      createDistricts();
     });
     var circuitCourts, courtDistricts;
 
+    // create configuration for checkboxes that
+    // contain filters to control which data is active
+    var checkboxFilters = {
+      maleVictim: {
+        fn: function (d) {
+          return d['MaleVictim(s)'] && d['MaleVictim(s)'].toUpperCase() === 'YES';
+        }
+      },
+      femaleVictim: {
+        fn: function (d) {
+          return d['FemaleVictim(s)'] && d['FemaleVictim(s)'].toUpperCase() === 'YES';
+        }
+      }
+    };
+
+    // filter only active cases
+    function applyCheckboxFilters (cases) {
+      if (!cases || !cases.length) {
+        return [];
+      }
+      var active = cases;
+      for (var filter in checkboxFilters) {
+        if (checkboxFilters[filter].active) {
+          active = active.filter(checkboxFilters[filter].fn);
+        }
+      }
+      return active;
+    }
+
+    // hook up check boxes to exploration map
+    $('#exploration-form').find('input[type="checkbox"]')
+    .on('change', function (e) {
+      var target = $(e.currentTarget);
+      var dataValue = target.data('value');
+      var filter = checkboxFilters[dataValue];
+      filter.active = target.is(':checked');
+      createDistricts();
+    });
+
     //Add polygons of the human trafficing district court regions
-    function createCourts(courts){
+    function createCourts(){
       if (exploreWatcher.isInViewport === true) {
         //create a Leaflet GeoJSON layer and add it to the map
+        if (circuitCourts && typeof circuitCourts.remove === 'function') {
+          circuitCourts.remove();
+        }
         circuitCourts = L.geoJson(courts, {
           style: style
         }).addTo(map);
@@ -101,19 +148,49 @@
 
 
     //Add polygons of the human trafficing district court regions
-    function createDistricts(districts, courts){
-      if (exploreWatcher.isInViewport === true) {
+    function createDistricts(){
+      if (exploreWatcher.isInViewport === true && districts) {
         //create a Leaflet GeoJSON layer and add it to the map
+        if (courtDistricts && typeof courtDistricts.remove === 'function') {
+          courtDistricts.remove();
+        }
         courtDistricts = L.geoJson(districts, {
           style: style
         }).addTo(map);
-
+        updateActiveCases();
       } else if  (typeof courtDistricts != 'undefined'){
         courtDistricts.remove();
       }
     };
+
+    function updateActiveCases () {
+      var activeCasesContainer = $('#active-cases');
+      var content = $('<div />');
+      districts.features.forEach(function (feature) {
+        var cases = applyCheckboxFilters(feature.properties.cases);
+        cases.forEach(function (d) {
+          var caseContent = $('<div />', {
+            class: 'active-case'
+          });
+          caseContent.append($('<h3 />', {
+            text: d['Case']
+          }));
+          caseContent.append($('<p />', {
+            text: d['FactSummary']
+          }));
+          // caseContent.text(d['FactSummary']);
+          // caseContent.addClass('active-case');
+          content.append(caseContent);
+        });
+      });
+      console.log(content);
+      activeCasesContainer.html(content.html());
+    }
+
     //find the max number of cases in a single district for the entire dataset
-    var max = d3.max(districts.features.map(function (feature) { return feature.properties.cases.length; }));
+    var max = d3.max(districts.features.map(function (feature) {
+      return applyCheckboxFilters(feature.properties.cases).length;
+    }));
 
     //creates styles for use in the two court layers
     function style(feature) {
@@ -131,7 +208,7 @@
           opacity: 1,
           color: 'tomato',
           //this fill opacity will need to be set based on a function that determines opacity by returning a number between 1 and 0
-          fillOpacity: parseFloat(feature.properties.cases.length / (max/2)),
+          fillOpacity: parseFloat(applyCheckboxFilters(feature.properties.cases).length / (max/2)),
           fillColor: 'tomato'
         };
       }

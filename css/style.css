@@ -198,3 +198,8 @@ footer {
   font-weight: bold;
   font-size: 40px;
 }
+
+#active-cases {
+  height: 40vh;
+  overflow-y: scroll;
+}
