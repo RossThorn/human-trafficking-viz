@@ -162,14 +162,18 @@ function zoomToUserState(userState){
         for (var i = 0, l = allStates.length; i < l; i++){
           var obj = allStates[i];
           if (obj.properties["State"] == userState){
-            console.log("You can access the user state in the geojson centroid now");
             map.flyTo(new L.LatLng(obj.properties["latitude"],(obj.properties["longitude"]-5)), 6, {animate: true});
             if (pageCheck == 0){
-              displayStateStatistics(userState);
+            displayStateStatistics(userState);
               pageCheck = 1;
             };
           } else {
-            //insert function that shows national statistics or example state
+            if (pageCheck == 0){
+              var proxyState = "Wisconsin";
+              displayStateStatistics(proxyState);
+              pageCheck = 1;
+            };
+
           };
 
         };
@@ -178,14 +182,12 @@ function zoomToUserState(userState){
 };
 
 function displayStateStatistics(userState){
-  console.log(userState);
   var csvStates = d3.csv("Data/TotalCallsCases.csv", function(data){
 
     for (var i = 0, l = data.length; i < l; i++){
       var obj = data[i];
 
       if (obj.state == userState){
-        console.log(userState);
         var stateStats = d3.select("#where")
                         .append("div")
                         .attr("class","stats")
