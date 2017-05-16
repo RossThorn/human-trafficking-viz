@@ -1,4 +1,5 @@
 (function(){
+  var pageCheck = 0;
 
   var map = L.map('big-map-canvas', {
     center: [40, -125],
@@ -63,7 +64,10 @@
     whereWatcher.enterViewport(function () {
       //changes the scale and zoom location to user location
       //map.flyTo(new L.LatLng(46,-94), 6, {animate: true});
-      getUserLocation();
+      if (pageCheck == 0){
+        getUserLocation();
+        pageCheck = 1;
+      };
       callData2016.addTo(map);
       createCourts(courts);
       createDistricts(districts);
@@ -78,17 +82,17 @@
       createCourts(courts);
       createDistricts(districts);
     });
-    var circutCourts, courtDistricts;
+    var circuitCourts, courtDistricts;
 
     //Add polygons of the human trafficing district court regions
     function createCourts(courts){
       if (exploreWatcher.isInViewport === true) {
         //create a Leaflet GeoJSON layer and add it to the map
-        circutCourts = L.geoJson(courts, {
+        circuitCourts = L.geoJson(courts, {
           style: style
         }).addTo(map);
-      } else if (typeof circutCourts != 'undefined') {
-        circutCourts.remove();
+      } else if (typeof circuitCourts != 'undefined') {
+        circuitCourts.remove();
       }
     };
 
