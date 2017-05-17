@@ -89,6 +89,8 @@
       callData2016.remove();
       createCourts();
       createDistricts();
+      searchByState();
+
     });
     var circuitCourts, courtDistricts;
 
@@ -274,6 +276,10 @@ function displayStateStatistics(userState){
     };
   });
 
+};
+
+function searchByState(){
+    // potential line of code
 };
 
   };
