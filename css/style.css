@@ -125,6 +125,10 @@ footer {
   font-weight: bold;
   font-size: 40px;
 }
+#big-stats{
+  color:tomato;
+}
+ 
 table {
   width: 80%;
   margin: 0 auto 0 auto;
