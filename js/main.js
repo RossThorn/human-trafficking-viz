@@ -218,21 +218,14 @@ function getUserLocation(){
         dataType: "json",
         success: function(response){
           //console.log(response);
-          var userLocation = [response.latitude, response.longitude];
+          //  var userLocation = [response.latitude, response.longitude];
           var userState = response.region_name;
           //console.log(userState);
           //Insert callback function to zoom to user location
-          //zoomtoUser(userLocation);
           zoomToUserState(userState);
         }
     });
 };
-
-function zoomtoUser(userLocation, userState){
-    var latitude = userLocation[0];
-    var longitude = userLocation[1]-1;
-    map.flyTo(new L.LatLng(latitude, longitude), 8, {animate: true});
-}
 
 function zoomToUserState(userState){
     $.ajax("Data/StateCentroid.geojson", {
@@ -241,7 +234,7 @@ function zoomToUserState(userState){
         var allStates = response.features;
         for (var i = 0, l = allStates.length; i < l; i++){
           var obj = allStates[i];
-          if (obj.properties["State"] == userState){
+          if (obj.properties["State"] == "userState"){
             map.flyTo(new L.LatLng(obj.properties["latitude"],(obj.properties["longitude"]-5)), 6, {animate: true});
             if (pageCheck == 0){
             displayStateStatistics(userState);
@@ -252,7 +245,7 @@ function zoomToUserState(userState){
         }
 
         if (loopCheck == 0){
-          map.flyTo(new L.LatLng( 44, -90), 6, {animate: true});
+          map.flyTo(new L.LatLng( 45, -92), 6, {animate: true});
           var proxyState = "Wisconsin";
           displayStateStatistics(proxyState);
           pageCheck = 1;
