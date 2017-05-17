@@ -1,6 +1,7 @@
 (function(){
   var pageCheck = 0;
   var loopCheck = 0;
+  var jsonCheck = 0;
   var map = L.map('big-map-canvas', {
     center: mapCenter (),
     zoom: mapZoom(),
@@ -95,11 +96,12 @@
 
     //return statement notifying when this happens
     whereWatcher.enterViewport(function () {
-      //changes the scale and zoom location to user location
-      //map.flyTo(new L.LatLng(46,-94), 6, {animate: true});
+      //adds call tileset.
       callData2016.addTo(map);
-      //createCourts();
-      //createDistricts();
+      if (jsonCheck == 1){
+        courtDistricts.remove();
+        jsonCheck = 0;
+      };
     });
 
     statsWatcher.enterViewport(function () {
@@ -122,7 +124,6 @@
       //changes the scale and zoom location to continental US
       map.flyTo(new L.LatLng(40, -125), 4, {animate: true});
       callData2016.remove();
-      //createCourts();
       createDistricts();
     });
     var circuitCourts, courtDistricts;
@@ -180,42 +181,24 @@
       createDistricts();
     });
 
-    //Add polygons of the human trafficing district court regions
-    function createCourts(){
-      if (exploreWatcher.isInViewport === true) {
-        //create a Leaflet GeoJSON layer and add it to the map
-        //create a Leaflet GeoJSON layer and add it to the map
-        if (circuitCourts && typeof circuitCourts.remove === 'function') {
-          circuitCourts.remove();
-        }
-        circuitCourts = L.geoJson(courts, {
-          style: style
-        }).addTo(map);
-      } else if (typeof circuitCourts != 'undefined') {
-        circuitCourts.remove();
-      }
-    };
 
     //Add polygons of the human trafficing district court regions
-        function createDistricts(){
-          if (typeof courtDistricts == 'undefined'){
-            courtDistricts = L.geoJson(districts, {
-              style: style
-            });
-          }
-          console.log(courtDistricts);
-          if (exploreWatcher.isInViewport === true && districts && !map.hasLayer(courtDistricts)) {
-            //create a Leaflet GeoJSON layer and add it to the map
-            // if (courtDistricts && typeof courtDistricts.remove === 'function') {
-            //   courtDistricts.remove();
-            // }
-            courtDistricts.addTo(map);
-            updateActiveCases();
-          } else {
-            console.log("fired");
-            courtDistricts.remove();
-          }
-        };
+    function createDistricts(){
+      if (exploreWatcher.isInViewport === true && districts) {
+        //create a Leaflet GeoJSON layer and add it to the map
+        if (courtDistricts && typeof courtDistricts.remove === 'function') {
+          courtDistricts.remove();
+        }
+        courtDistricts = L.geoJson(districts, {
+          style: style
+        }).addTo(map);
+        jsonCheck = 1;
+        updateActiveCases();
+
+      } else if  (typeof courtDistricts != 'undefined'){
+        courtDistricts.remove();
+      }
+    };
 
     //changes the text of the cases that fit the description based on user input (the sorted cases)
     function updateActiveCases () {
