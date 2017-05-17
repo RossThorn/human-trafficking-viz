@@ -49,7 +49,7 @@
   }
 
   //create section watchers
-  var exploreWatcher = scrollMonitor.create($('#exploration'));
+  var exploreWatcher = scrollMonitor.create($('#explore'));
   //code watches for when the user scrolls to section1
   var whereWatcher = scrollMonitor.create($('#where'));
   var statsWatcher = scrollMonitor.create($('#calls'));
@@ -99,7 +99,7 @@
       //map.flyTo(new L.LatLng(46,-94), 6, {animate: true});
       callData2016.addTo(map);
       //createCourts();
-      createDistricts();
+      //createDistricts();
     });
 
     statsWatcher.enterViewport(function () {
@@ -198,17 +198,21 @@
 
     //Add polygons of the human trafficing district court regions
         function createDistricts(){
-          console.log("layer1");
-          if (exploreWatcher.isInViewport === true && districts) {
+          if (typeof courtDistricts == 'undefined'){
+            courtDistricts = L.geoJson(districts, {
+              style: style
+            });
+          }
+          console.log(courtDistricts);
+          if (exploreWatcher.isInViewport === true && districts && !map.hasLayer(courtDistricts)) {
             //create a Leaflet GeoJSON layer and add it to the map
             // if (courtDistricts && typeof courtDistricts.remove === 'function') {
             //   courtDistricts.remove();
             // }
-            courtDistricts = L.geoJson(districts, {
-              style: style
-            }).addTo(map);
+            courtDistricts.addTo(map);
             updateActiveCases();
-          } else if  (typeof courtDistricts != 'undefined'){
+          } else {
+            console.log("fired");
             courtDistricts.remove();
           }
         };
