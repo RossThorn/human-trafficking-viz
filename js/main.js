@@ -280,6 +280,7 @@ function displayStateStatistics(userState){
 
 function searchByState(){
     // potential line of code
+    //zoomToUserState(inputState);
 };
 
   };
