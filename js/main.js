@@ -177,7 +177,7 @@ function zoomToUserState(userState){
 };
 
 function displayStateStatistics(userState){
-  var csvStates = d3.csv("data/TotalCallsCases.csv", function(data){
+  var csvStates = d3.csv("Data/TotalCallsCases.csv", function(data){
 
     for (var i = 0, l = data.length; i < l; i++){
       var obj = data[i];
