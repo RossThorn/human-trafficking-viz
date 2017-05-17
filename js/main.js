@@ -2,19 +2,30 @@
   var pageCheck = 0;
 
   var map = L.map('big-map-canvas', {
-    center: [40, -125],
-    zoom: 4,
+    center: mapCenter (),
+    zoom: mapZoom(),
     // maxBounds: bounds,
     maxBoundsViscosity:.7,
-    minZoom: 4,
-    scrollWheelZoom: false
+    //minZoom: 4,
+    scrollWheelZoom: false,
+    zoomControl: true
   });
+  // change map center for mobile
+  function mapCenter (){
+    if (window.innerWidth > 600) {return [40, -125]}
+    else {return [40, -98]}
+  };
+  //change map zoom level based on screensize
+  function mapZoom (){
+    var d = [3, 4]
+    if (window.innerWidth > 600) {return d[1]}
+    else {return d[0]}
+  };
 
   //add OSM base tilelayer
   L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
     subdomains: 'abcd',
-    minZoom:2
   }).addTo(map);
 
   //Accordion implementation for text sections
@@ -83,7 +94,7 @@
     //return statement notifying when this happens
     whereWatcher.enterViewport(function () {
       //changes the scale and zoom location to user location
-      //map.flyTo(new L.LatLng(46,-94), 6, {animate: true});
+      map.flyTo(new L.LatLng(46,-94), 6, {animate: true});
       if (pageCheck == 0){
         getUserLocation();
         pageCheck = 1;
@@ -97,7 +108,7 @@
     //return statement notifying when this happens
     exploreWatcher.enterViewport (function () {
       //changes the scale and zoom location to continental US
-      map.flyTo(new L.LatLng( 40, -125), 4, {animate: true});
+      map.flyTo(new L.LatLng(40, -125), 4, {animate: true});
       callData2016.remove();
       createCourts();
       createDistricts();
@@ -152,7 +163,6 @@
     $('.exploration-form').find('input[type="checkbox"]')
     .on('change', function (e) {
       var target = $(e.currentTarget);
-      console.log(target);
       var dataValue = target.data('value');
       var filter = checkboxFilters[dataValue];
       filter.active = target.is(':checked');
@@ -191,36 +201,38 @@
         courtDistricts.remove();
       }
     };
-    function updateActiveCases () {
-          var activeCasesContainer = $('#active-cases');
-          var content = $('<div />');
-          districts.features.forEach(function (feature) {
-            var cases = applyCheckboxFilters(feature.properties.cases);
-            cases.forEach(function (d) {
-              var caseContent = $('<div />', {
-                class: 'active-case'
-              });
-              caseContent.append($('<h3 />', {
-                text: d['Case']
-              }));
-              caseContent.append($('<em />', {
-                text: d['Court']
-              }));
-              caseContent.append($('<p />', {
-                text: d['FactSummary']
-              }));
-              // caseContent.text(d['FactSummary']);
-              // caseContent.addClass('active-case');
-              content.append(caseContent);
-            });
-          });
-          activeCasesContainer.html(content.html());
-        }
 
-        //find the max number of cases in a single district for the entire dataset
-        var max = d3.max(districts.features.map(function (feature) {
-          return applyCheckboxFilters(feature.properties.cases).length;
-        }));
+    //changes the text of the cases that fit the description based on user input (the sorted cases)
+    function updateActiveCases () {
+      var activeCasesContainer = $('#active-cases');
+      var content = $('<div />');
+      districts.features.forEach(function (feature) {
+        var cases = applyCheckboxFilters(feature.properties.cases);
+        cases.forEach(function (d) {
+          var caseContent = $('<div />', {
+            class: 'active-case'
+          });
+          caseContent.append($('<h3 />', {
+            text: d['Case']
+          }));
+          caseContent.append($('<em />', {
+            text: d['Court']
+          }));
+          caseContent.append($('<p />', {
+            text: d['FactSummary']
+          }));
+          // caseContent.text(d['FactSummary']);
+          // caseContent.addClass('active-case');
+          content.append(caseContent);
+        });
+      });
+      activeCasesContainer.html(content.html());
+    }
+
+    //find the max number of cases in a single district for the entire dataset
+    var max = d3.max(districts.features.map(function (feature) {
+      return applyCheckboxFilters(feature.properties.cases).length;
+    }));
 
 
     //creates styles for use in the two court layers
@@ -239,7 +251,7 @@
           opacity: 1,
           color: 'tomato',
           //this fill opacity will need to be set based on a function that determines opacity by returning a number between 1 and 0
-           fillOpacity: parseFloat(applyCheckboxFilters(feature.properties.cases).length / (max/2)),
+          fillOpacity: parseFloat(applyCheckboxFilters(feature.properties.cases).length / (max/2)),
           fillColor: 'tomato'
         };
       }

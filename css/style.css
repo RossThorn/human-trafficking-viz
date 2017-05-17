@@ -24,8 +24,6 @@ body {
   padding-top: 40vh;
   color:tomato;
   height: 100vh;
-  width: 100vw;
-  /*text-shadow: 1px 2px 5px blue;*/
 
 }
 
@@ -70,7 +68,6 @@ body {
 }
 
 article.container {
-  margin: 0;
   background: #414142;
   color: #d8d8d8;
   opacity: 0.9;
@@ -124,41 +121,41 @@ footer {
   color: #d8d8d8;
 }
 .stats {
-	  text-align: left;
-	  font-weight: bold;
-	  font-size: 40px;
-	}
-  table {
-    width: 80%;
-    margin: 0 auto 0 auto;
-  }
-  td {
-    text-align: left;
-  }
-  #active-cases {
-    margin-left: 10px;
-	  height: 50vh;
-	  overflow-y: scroll;
-	}
+  text-align: left;
+  font-weight: bold;
+  font-size: 40px;
+}
+table {
+  width: 80%;
+  margin: 0 auto 0 auto;
+}
+td {
+  text-align: left;
+}
+#active-cases {
+  margin-left: 10px;
+  height: 50vh;
+  overflow-y: scroll;
+}
 
 /*mobile stylying*/
 @media(max-width: 600px) {
-  .container{
+  .container {
     padding: 0 0 0 0;
-	    height: 52vh;
-	    position: absolute;
-	    bottom: 0px;
-	    overflow-y: scroll;
-	  }
-	  #big-map-canvas {
-	    height: 45vh;
-	    position: absolute;
-	    top: 0px;
-	  }
-    #intro {
-      padding-top: 5vh;
-
-    }
+    height: 50vh;
+    position: absolute;
+    bottom: 0px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+  #big-map-canvas {
+    height: 50vh;
+    position: absolute;
+    top: 0px;
+  }
+  #intro {
+    padding-top: 5vh;
+  }
   article.container {
     margin-top: 200px;
     background: none;
@@ -169,7 +166,7 @@ footer {
   article.container header, article.container section, article.container aside {
     background: #414142;
     margin: 0;
-    padding: 5px 0;
+    padding: 5px;
   }
 
   article p {
@@ -204,36 +201,36 @@ footer {
 }
 
 div.questions {
-    padding: 10px;
-    background-color: whitesmoke;
-    display: none;
+  padding: 10px;
+  background-color: whitesmoke;
+  display: none;
 }
 
- /* Style the buttons that are used to open and close the accordion panel */
+/* Style the buttons that are used to open and close the accordion panel */
 button.accordion {
-    background-color: #eee;
-    color: #444;
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    text-align: left;
-    border: none;
-    outline: none;
-    transition: 0.2s;
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.2s;
 }
 button.accordion:before {
-    content: '\02795'; /* Unicode character for "plus" sign (+) */
-    font-size: 13px;
-    color: #777;
-    float: left;
-    margin-right: 5px;
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: #777;
+  float: left;
+  margin-right: 5px;
 }
 
 button.accordion.active:before {
-    content: "\2796"; /* Unicode character for "minus" sign (-) */
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 button.accordion.active, button.accordion:hover {
-    background-color: #ddd;
+  background-color: #ddd;
 }
