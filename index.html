@@ -14,62 +14,215 @@
     <h2>Human Trafficking at Home</h2>
     <h4>Reporting and Legislating in the United States</h4>
   </div>
+  
   <div id="wrapper">
 
     <div id="big-map-canvas" class="leaflet-container leaflet-retina leaflet-fade-anim" tabindex="0"></div>
 
     <article class="container">
-      <section class="center" id="intro_section">
-        <p>American citizens suffer every day as victims of human trafficking, hidden in plain sight within the United States. In fact, in 2015 the United States was the number one country of origin of federally identified victims. (Trafficking in Persons Report 2016, 388)</p>
-        <p>It is happening in our shared home, in our communities. </p>
-        <p>And each of us is an important part of the solution. <b>STEP 1: Increasing your Awareness</b> of the issue is the first step you can take in fighting this heinous and hidden reality. So let us begin…</p>
-      </section>
-      <section class="center" id="whatIsHT">
-        <h2>What is Human Trafficking?</h2>
-        <p>At the core, it is taking egregious advantage of a person’s vulnerability. Formally, it is:</p>
-        <ul>The recruitment, harboring, transportation, provision, or obtaining of a person for labor or services, through the use of force, fraud, or coercion for the purpose of subjection to involuntary servitude, peonage, debt bondage, or slavery.</ul>
-        <ul>AND/OR</ul>
-        <ul><em>sex trafficking</em> in which a commercial sex act is induced by force, fraud, or coercion, or in which the person induced to perform such an act has not attained 18 years of age
-        </ul>
-        <p>(Source: The Trafficking Victims Protection Act of 2000 (TVPA))</p>
-      </section>
-      <section class="center" id="where">
-        <h2>Where Does it Happen?</h2>
-        <p>Everywhere. Along major transportation routes, at truck stops, at massage parlors, at hair salons, at restaurants, in large cities and small towns, right down the street. “The United States is a source, transit, and destination country for men, women, transgender individuals, and children—both U.S. citizens and foreign nationals—subjected to sex trafficking and forced labor. Trafficking occurs in both legal and illicit industries, including in commercial sex, hospitality, sales crews, agriculture, fishing, manufacturing, janitorial services, construction, restaurants, health and elder care, salon services, fairs and carnivals, peddling and begging, and domestic service. Government officials, companies, and NGOs have expressed concern about the risk of human trafficking in global supply chains, including in federal contracts.” (Source: Trafficking in Persons Report 2016, 387-388) It is essential to look outside your window and at those you are passing when you walk down the street. Opening your eyes to the reality that it is happening in your town or city, in one or many of the forms presented here, is vital to ending it.</p>
-      </section>
-      <section class="center" id="why">
-        <h2>Why Does it Happen?</h2>
-        <p>But the story we are telling here is not one of where human trafficking is happening, but of how people like you are recognizing the signs  of potential human trafficking occurrences and reporting them by making calls from your state to the National Hotline. We are also sharing where a fraction of the human trafficking cases have made it to trial in the United States, thanks to the first-of-its-kind, publicly available collection published by the University of Michigan Law School, emphasizing stories and resolutions of human trafficking experiences within the United States.
-          <p>In this way, we hope to enlighten you about: the complexity and common, close occurrence of trafficking within the United States; the documented experiences of victims; and, how we can defeat it by each of us taking action.</p> <p>[This is in no way a complete picture of these data, the experiences behind them, or of the multiplicities of realities surrounding this worldwide and domestically-driven industry, but it is an insight into these data from a lens meant to be sensitive towards its depiction.]</p>
-        </section>
 
-        <section class="center" id="exploration">
-          <h2>Section 3</h2>
-          <p>Navigation!</p>
-          <form id="exploration-form">
-            <input type="checkbox" data-value="maleVictim">
-              <label>Male Victim</label>
-            </input>
-            <input type="checkbox" data-value="femaleVictim">
-              <label>Female Victim</label>
-            </input>
-          </form>
-          <div id="active-cases"></div>
-        </section>
-        <section class="center" id="credits">
-          <h4>Credits</h4>
-          <p>Cover Photo Courtesy of <a target="blank" href="https://www.flickr.com/photos/55229469@N07/14299096409/">Forsaken Fotos</a></p>
-        </section>
-      </article>
-    </div>
-    <script src="lib/jquery-3.1.1.js" type="text/javascript"></script>
-    <script src="lib/leaflet/leaflet-src.js" type="text/javascript"></script>
-    <script src="lib/leaflet/leaflet.js" type="text/javascript"></script>
-    <script src="lib/leaflet/leaflet-providers.js" type="text/javascript"></script>
-    <script src="lib/scroll-monitor.js" type="text/javascript"></script>
-    <script src="lib/bootstrap/js/bootstrap.js" type="text/javascript"></script>
-    <script src="lib/d3.js" type="text/javascript"></script>
-    <script src="js/main.js" type="text/javascript"></script>
-  </script>
+<!--BEGINNING OF TYPE CONTENT.........................................-->
+
+      <section class="center" id="definition">
+        <h1>What is human trafficking? </h1>
+        <p>At the core, it is taking egregious advantage of an individuals’s vulnerability. Formally, it is:</p>
+        <ul>The <b>recruitment, harboring, transportation, provision, or obtaining</b> of a person for <b>labor or services</b>, through the use of force, fraud, or coercion for the purpose of <b>subjection to involuntary servitude, peonage, debt bondage, or slavery</b>; </ul>
+        <ul>and/or </ul>
+        <ul><b>Sex trafficking</b> in which a commercial sex act is <b>induced by force, fraud, or coercion</b>, or in which the person induced to perform such an act has not attained 18 years of age.<sup>2</sup></ul>
+      </section>
+
+      <section class="center" id="project">
+       <p>The story we are telling here is not one of where human trafficking is necessarily <i>happening</i>, but of where and how people like you are <a href="https://www.dhs.gov/blue-campaign/indicators-human-trafficking">recognizing the signs</a> of potential human trafficking occurrences and reporting them by making calls to the <a href="https://humantraffickinghotline.org/">National Hotline</a>. We are also sharing where a fraction of the human trafficking cases have made it to trial in the United States, thanks to the first-of-its-kind, <a href="https://www.unodc.org/cld/en/v3/htms/cldb/index.html">publicly available collection of case law</a>, emphasizing the stories and resolutions of human trafficking experiences within the United States. </p>
+      </section>
+
+      <section class="center" id="story">
+        <h2><em>Amber* was a victim of human trafficking in the United States.</em></h2>
+        <p>Amber lived with her cousin in St. Louis, Missouri. At 18 years old in 2008 and suffering from mental disabilities, she was persuaded by two sisters (American, 21 and 34 years of age) to move from her cousin’s apartment into their house on the 5200 block of Genevieve Avenue. The sisters had promised to take care of Amber and to help her to get her children back. Instead, they forced Amber into slavery, claiming that Amber must repay her own cousin’s contrived debt to one of the sisters. The sisters began stealing Amber’s monthly social security disability check. Amber was forced into prostitution on the street and from the house. She was also forced to do housework and suffered horrendous abuses, including being made to drink urine, perform acts of bestiality, being burned and gagged, tied to a chair, and left in the garage. A male housemate also forced Amber’s head into a bath full of water, and had concealed the crimes he was aware of from police on at least three occasions over two months.9 The sisters had threatened to hurt Amber’s mother and grandmother if she did not comply. In 2009, officers from the St. Louis Metro Police Department discovered Amber tied up in the garage. One of the sisters—as the primary perpetrator—claims to have been subjected to the same treatment by her own mother, and has lived in a world of drugs, abuse, and her own mental challenges since childhood. The three perpetrators were sentenced soon after pleading guilty, together amounting to 27.25 years to be spent in prison.<sup>10</sup><small><i> *Name is a pseudonym</i><a href="https://www.unodc.org/cld/case-law-doc/traffickingpersonscrimetype/usa/2005/united_states_v._wallace.html?lng=en&tmpl=htms"> (Case USA162)</a></small></p>
+      </section>
+
+      <section class="center" id="transition">
+        <p>Not all stories end in rescue and trial. But Amber’s did, as well as 180 other publicly documented cases seen in U.S. courts (see the final map). Victims of trafficking have diverse experiences and need an efficient justice system fueled by citizen recognition, action, and support. This is why it is essential for each of us to do our part in educating ourselves on trafficking and actively work to stop it from happening here at home.</p>
+      </section>
+
+      <section class="center" id="stats">
+        <h1>How many suffer?</h1>
+        <p>There are an estimated <b>45.8 million people</b> held in slavery today. <b>57,700</b> of these people live within the U.S.<sup>6</sup>—a number just short of the entire population of Dubuque, Iowa, or enough people to overflow—by 15,000 people—Miller Park, or almost enough people to fill Lincoln Financial Field where comedian Kevin Hart just made history.<sup>7</sup> Imagine if 57,700 of the 68,532 ticketholders in the stadium had been segregated and forced into slavery. These would be victims of <b>human trafficking</b>. And, unfortunately, these estimates do not reflect the true number of victims suffering in our modern world, including in every single U.S. state.  In fact, Polaris estimates that the number of human trafficking victims in America is in actuality in the <em><i>hundreds of thousands</i></em>.<sup>8</sup> Whatever the number, each and every individual that suffers as a victim matters.</p>
+      </section>
+
+      <section id="details">
+
+        <button class="accordion"><i>Where does human trafficking happen in the U.S.?</i> <b>EVERYWHERE</b></button>
+          <div class="questions">
+            <p>The U.S. is a <b>source</b>, <b>transit</b>, and <b>destination</b> country for victims of human trafficking.<sup>1</sup> It occurs in small towns as well as large cities, online, along major transportation routes, at truck stops, at hair salons, at restaurants, to name just a few. It especially concentrates along <em>borders</em>, where legal jurisdictions vary. Human trafficking is a <em>network</em> facilitated through movement of individuals across borders at all scales, and victims are not static. Meanwhile, cybersex trafficking is without borders and astonishingly prevalent.<sup>11</sup> It is occurring right down your street, now, seen or unseen.</p>
+            <p> Trafficking occurs in both legal and illicit industries, including:<sup>1</sup> 
+            <ul style="list-style-type:none">
+              <li>hospitality</li>
+              <li>sales crews</li>
+              <li>agriculture</li>
+              <li>fishing</li>
+              <li>manufacturing</li>
+              <li>janitorial services</li>
+              <li>construction</li>
+              <li>restaurants</li>
+              <li>health and elder care</li>
+              <li>fairs and carnivals</li>
+              <li>peddling and begging</li>
+              <li>domestic service</li>
+              <li>commercial sex</li>
+              <li>global supply trains, including in federal contracts</li>
+            </ul>
+            </p>
+          </div>
+      
+        <button class="accordion"><i>To whom is it happening now and who is at risk of being trafficked in the U.S.?</i> <b>ANYONE</b></button>
+          <div class="questions">
+            <p>Picture any face. Cases have been reported for every age, gender, sex, race, nationality or citizenship status. Particularly vulnerable populations in the United States include:<sup>1</sup>
+            <ul style="list-style-type:none">
+                <li>Children in the child welfare and juvenile justice systems</li>
+                <li>Runaway and homeless youth</li>
+                <li>American Indians and Alaska Natives</li>
+                <li>Migrant laborers, including participants in visa programs for temporary workers</li>
+                <li>Foreign national domestic workers in diplomatic households</li>
+                <li>Persons with limited English proficiency</li>
+                <li>Persons with disabilities</li>
+                <li>LGBTI individuals</li>
+              </ul>
+            </p>
+          </div>
+
+        <button class="accordion"><i>When does human trafficking occur?</i> <b>EVERY SECOND OF EVERY DAY</b></button>
+          <div class="questions">
+            <p>Human trafficking occurs when an individual’s vulnerability is taken advantage of. This exploitation happens every single day. </p>
+          </div>
+
+        <button class="accordion"><i>Why does human trafficking occur?</i> <b>BECAUSE WE ALLOW IT</b></button>
+          <div class="questions">
+            <p>Each of our lives is touched by it, every single day, through the businesses we support, the products we purchase, and our daily habits. Human trafficking is a <em>market-driven criminal industry, fueled by a demand for cheap labor, services, and for commercial sex</em>.<sup>4</sup> </p>
+            <p>From the enslavement and abuse of a modestly estimated 21,000,000 (21 million) people worldwide, including the U.S. 3, in 2014 the forced labour industry alone made an estimated:
+              <ul style="list-style-type:none">
+                <li><b>$150,000,000,000</b> (150 billion) of illegal profits worldwide</li>
+                <li><b>$99,000,000,000</b> (99 billion) from commercial sexual exploitation + </li>
+                <li><b>$51,000,000,000</b> (51 billion) from forced economic exploitation: 
+                  <ul>
+                    <li><i>$34,000,000,000</i> (34 billion) in construction, manufacturing, mining and utilities + </li>
+                    <li><i>$9,000,000,000</i> (9 billion) in agriculture, including forestry and fishing + </li>
+                    <li><i>$8,000,000,000</i>  (8 billion) saved by private households by not paying or underpaying domestic workers held in forced labour. </li>
+                  </ul>
+                </li>
+              </ul>
+            </p>
+            <p>Human traffickers perceive there to be little risk or deterrence to affect their criminal operations. This is why the rate of identifying and prosecuting cases needs to increase. Each of us is an important part of the solution.</p>
+          </div>
+      
+      </section>
+
+      <section class="center" id="help">
+        <h1>HELP!</h1>
+        <p><i><b>How am I helping already?</b></i></p>
+        <ul style="list-style-type:none">
+          <li>By engaging with this map story! </li> 
+          <p><li>And by spending a few moments thinking about what human trafficking victims are experiencing and what it would mean or be like if you fell victim. </li></p>
+        </ul>
+        <p><i><b>What else can I do to help?</b></i></p>
+        <button class="accordion"><b>Educate</b> yourself further</button>
+          <div class="questions">
+            <p><a href="https://www.youtube.com/watch?v=2HB6zoRTdO4">Click here for videos of survivors sharing their stories</a>.</p>
+
+            <p>U.S. Homeland Security’s <a href= "https://www.dhs.gov/blue-campaign"> Blue Campaign</a>, the <a href="https://www.ijm.org/">International Justice Mission</a>, and the <a href="https://polarisproject.org/">Polaris Project</a> are also excellent places to begin. Be sure to check out their resources tabs for additional sources to learn about human trafficking. The <a href="https://humantraffickinghotline.org/state/alabama">National Human Trafficking Hotline</a> allows you to search statistics, resources, and events by state. Also, see the U.S. profile for a full description of modern day slavery from the <a href="https://www.globalslaveryindex.org/country/united-states/">Global Slavery Index</a>.</p>
+            <p>Be sure to note the differences in reported statistics, underlying how widely varying numbers are in trying to capture and sum up this complexly woven and constantly fluctuating worldwide industry.</p>
+            <p><a href="https://www.youtube.com/user/intljusticemission">Click here for informational videos on human trafficking</a>.</p>
+          </div>
+
+        <button class="accordion"><b>Consume</b> responsibly and with intention to reduce demand for sex and labour trafficking<sup>4</sup></button>
+          <div class="questions">
+            <ul style="list-style-type:none">
+              <li>The choices you make may be helping to drive the human trafficking industry:</li>
+                <ul style="list-style-type:none">
+                  <li>Know where the products you buy are coming from, who is producing the product, and under what conditions;</li>
+                  <li>Use online tools such as <a href="http://slaveryfootprint.org/">Slavery Footprint</a> to see how human trafficking exists in the services and products they consume;</li>
+                  <li>Buy fair trade and survivor-made products;</li>
+                  <li>Hold your favorite brands accountable for fair labor practices;</li>
+                  <li>and</li>
+                  <li>Don’t participate in the commercial sex industry, including watching pornography—a huge contributor to sexual exploitation worldwide.</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+        <button class="accordion"><b>Be Aware</b> and <b>Get Involved</b> in your local community</button>
+          <div class="questions">
+            <p>Recognizing how human trafficking is occurring in your local community is vital to saving lives and helping victims. In fact, community members contribute the most calls to the Polaris hotline.<sup>5</sup> Get to know your neighbors, those that provide you food and services, the people with whom your life is entwined. </p>
+            <p>The <a href="https://humantraffickinghotline.org/training-resources/referral-directory?loc=madison%2C+wi&x=0&y=0">National Human Trafficking Directory</a> is a great place to start for finding local organizations working to help victims and to combat human trafficking. Importantly, volunteering at any local organization can help decrease the vulnerability of individuals and the likelihood that they will be trafficked. Time spent caring for and being there for children, especially at-risk children, is especially valuable. </p>
+            <p>If you do not live in a city with a <a href="https://www.dhs.gov/blue-campaign">Blue Campaign</a>, consider starting one by taking advantage of all of their free materials, trainings, and videos. </p>
+            <p><i><small>Cities with campaigns: Tucson, AZ; Yuma, AZ; San Diego, CA; Miami, FL; New Orleans, LA; Minneapolis, MN; Las Vegas, NV; New York City, NY; Bismarck, ND; Dickinson, ND; Fargo, ND; Minot, ND; Williston, ND; San Antonio, TX </small></i></p>
+          </div>
+
+        <button class="accordion"><b>Report</b> signs or suspicions of human trafficking </button>
+          <div class="questions">
+            <p>You are the front lines. By recognizing the signs of human trafficking and potential victims, you are helping law enforcement rescue victims and you might save a life. </p>
+            <p>To report to the National Human Trafficking Hotline, call <b>1-888-373-7888</b> or text <b>HELP</b> or <b>INFO</b> to <b>BeFree (233733)</b>. The NHTH is a national, toll-free hotline available to answer calls from anywhere in the country, 24 hours a day, 7 days a week, every day of the year. </p> 
+            <p><i><small>The NHTH is not a law enforcement or immigration authority and is operated by a NGO funded by the Federal government. </small></i></p>
+          </div>
+
+        <button class="accordion"><b>Advocate</b> for legislation and funding </button>
+          <div class="questions">
+            <p>Ending human trafficking requires constant vigilance, and legislation supporting this vigilance is not only essential but requires government funding to be successfully implemented. Require that your legislators represent your needs as well as the needs of the “invisible” victims of human trafficking. The U.S. government continues to make progress in addressing the prosecution, protection, and prevention of trafficking, and needs to continue to do so (for a list of recent actions and recommendations, see the <a href="https://paei.state.gov/j/tip/rls/tiprpt/2016/index.htm">2016 Trafficking In Persons Report</a>). </p>
+          </div>
+
+        <button class="accordion"><b>Donate</b> to anti-trafficking organizations </button>
+          <div class="questions">
+            <p>Also consider donating to any of the many non-governmental organizations that are combating trafficking and holding the government accountable in their efforts. The anti-trafficking model is proven to work, and donations fuel their operations. Highlighted as one of 10 non-profits "making a difference" by U.S. News and World Report, <a href="https://www.ijm.org/">the International Justice Mission</a>)—the largest anti-trafficking organization in the world—is one of the many where your dollars truly do make a difference. </p>
+            <p><b>Better yet, contribute to or invest in a local shelter or children’s program</b>.</p>
+          </div>
+
+        <button class="accordion"><b>Foster Opportunities</b> everyday </button>
+          <div class="questions">
+            <p><i><b>“Do what you can with what you have.”</b></i></p>
+            <p>You can help, today, in ways that no one else can. Think creatively about how you can leverage your interests or skills in ways that also help to combat trafficking, such as by organizing a fundraiser through clothing donations, or by educating colleagues at work. <b>Every little bit matters. </b></p>
+            <p>Remember: You matter.</p>
+          </div>
+
+      </section>
+
+      <section class="center" id="disclaimer">
+        <p><i><small>This is in no way a complete picture of these data in particular, of the experiences behind them, or of the multiplicities of realities surrounding this worldwide and domestically-driven industry of human trafficking within the U.S. It is an attempt to provide a new form of engagement with a small selection of the incredible resources and initiatives that exist today in the efforts against trafficking, focusing on the stories of victims. It is important to note that—due to its “hidden” and complex nature—human trafficking in the U.S. is recorded only in estimates and proxies. An accurate extent of its prevalence is lacking. The statistics and numbers used here reflect the best possible efforts by agencies in their missions. No offences were meant by the cartographers and we happily welcome and encourage constructive feedback. </small></i></p>
+      </section>
+      
+<!--END OF TYPE CONTENT..................................................-->
+
+      <section class="center" id="sources"> 
+        <h4>Sources</h4>
+        <p>
+          <ol type="1">
+            <li>U.S. Department of State (2016). Trafficking in Persons Report 2016.  387-389. <small><a>https://paei.state.gov/j/tip/rls/tiprpt/2016/index.htm</a></small></li>
+            <li>U.S. Department of State (2000). The Trafficking Victims Protection Act of 2000. <small><a>https://www.state.gov/j/tip/laws/</a></small></li>
+            <li>International Labour Organization (2014). Profits and Poverty: The Economics of Forced Labour. <small><a>http://www.ilo.org/global/publications/ilo-bookstore/order-online/books/WCMS_243391/lang--en/index.htm</a></small></li>
+            <li>Polaris (2017). “Why Trafficking Exists”. Human Trafficking Hotline website. <small><a>https://humantraffickinghotline.org/type-trafficking/human-trafficking </a></small></li>
+            <li>Polaris (2017). <small><a>https://humantraffickinghotline.org/states </a></small></li>
+            <li>Global Slavery Index (2017). <small><a>https://www.globalslaveryindex.org/ </a></small></li>
+            <li>World Stadiums (2017). <small><a>http://www.worldstadiums.com/ </a></small></li>
+            <li>Polaris (2017). <small><a>https://polarisproject.org/american-crime </a></small></li>
+            <li>St. Louis Post-Dispatch (2009). <small><a>http://www.stltoday.com/news/abuser-of-disabled-teen-gets-years/article_984a3a82-ce6d-5484-95c1-363d09c6faab.html </a></small></li>
+            <li>Case USA162, Human Trafficking Case Law Database. <small><a>https://www.unodc.org/cld/case-law-doc/traffickingpersonscrimetype/usa/2005/united_states_v._wallace.html?lng=en&tmpl=htms </a></small></li>
+            <li>National Director Sam Inocencio, IJM Philippines. <small><a>http://news.ijm.org/children-exploited-on-screen-by-american-man-finally-found-in-the-philippines/?_ga=2.224236509.759915799.1494880462-1775472162.1490892402 </a></small></li>
+          </ol>
+        </p>
+
+      <section class="center" id="credits">
+        <h4>Credits</h4>
+        <p>Cover Photo Courtesy of <a target="blank" href="https://www.flickr.com/photos/55229469@N07/14299096409/">Forsaken Fotos</a></p>
+      </section>
+    
+    </article>
+
+  <script src="lib/jquery-3.1.1.js" type="text/javascript"></script>
+  <script src="lib/leaflet/leaflet-src.js" type="text/javascript"></script>
+  <script src="lib/leaflet/leaflet.js" type="text/javascript"></script>
+  <script src="lib/leaflet/leaflet-providers.js" type="text/javascript"></script>
+  <script src="lib/scroll-monitor.js" type="text/javascript"></script>
+  <script src="lib/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+  <script src="lib/d3.js" type="text/javascript"></script>
+  <script src="js/main.js" type="text/javascript"></script>
+</script>
 </body>
 </html>

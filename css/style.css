@@ -21,11 +21,12 @@ body {
   -o-background-size: cover;
   background-size: cover;
   text-align: center;
-  padding-top: 40vh;
-  color: tomato;
+  padding-top: 2vh;
+  color:tomato;
   height: 100vh;
   width: 100vw;
-  text-shadow: 1px 2px 0px #000000;
+  text-shadow: 1px 2px 5px blue;
+
 }
 
 #intro h2 {
@@ -36,6 +37,7 @@ body {
 #intro h4 {
   font-size: 2.2em;
   color: white;
+  text-shadow: 1px 1px 2px black;
 }
 
 .article_paragraph {
@@ -69,11 +71,9 @@ body {
 }
 
 #exploration {
-  height:50vh;
+  height:95vh;
 }
-#stats {
-  color: tomato;
-}
+
 article.container {
   margin: 0;
   background: #414142;
@@ -150,18 +150,10 @@ footer {
   color: #d8d8d8;
 }
 
-@media(max-width: 600px) {
-  .container{
-    height: 50vh;
-    position: absolute;
-    bottom: 0px;
-    overflow: scroll;
-  }
-  #big-map-canvas {
-    height: 50vh;
-    position: absolute;
-    top: 0px;
-  }
+#mainMap {
+  height: 50px;
+}
+@media(max-width: 500px) {
   article.container {
     margin-top: 200px;
     background: none;
@@ -200,7 +192,44 @@ footer {
   font-size: 40px;
 }
 
-#active-cases {
-  height: 40vh;
-  overflow-y: scroll;
+/* Style the accordion panel. Note: hidden by default */
+.questions {
+  color: black;
 }
+
+div.questions {
+    padding: 10px;
+    background-color: white;
+    display: none;
+} 
+
+ /* Style the buttons that are used to open and close the accordion panel */
+button.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.2s;
+}
+button.accordion:before {
+    content: '\02795'; /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    color: #777;
+    float: left;
+    margin-right: 5px;
+}
+
+button.accordion.active:before {
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+button.accordion.active, button.accordion:hover {
+    background-color: #ddd;
+}
+
+
