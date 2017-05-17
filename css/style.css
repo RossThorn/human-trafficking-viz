@@ -3,6 +3,10 @@ body {
   min-height: inherit;
 }
 
+a {
+color: #80D7FF;
+}
+
 #intro img {
   width: 100vw;
   height: 100vh;
@@ -138,8 +142,11 @@ td {
 }
 #active-cases {
   margin-left: 10px;
-  height: 50vh;
+  height: 65vh;
   overflow-y: scroll;
+  border-color: white;
+  border-width: medium;
+  background-color: #676767;
 }
 
 /*mobile stylying*/
@@ -243,5 +250,5 @@ button.accordion.active:before {
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 button.accordion.active, button.accordion:hover {
-  background-color: #ddd;
+  background-color: #777;
 }
