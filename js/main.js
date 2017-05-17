@@ -103,7 +103,7 @@
       createDistricts();
     });
     var circuitCourts, courtDistricts;
-
+    console.log(districts.features[0].properties.cases);
     // create configuration for checkboxes that
     // contain filters to control which data is active
     var checkboxFilters = {
@@ -115,6 +115,21 @@
       femaleVictim: {
         fn: function (d) {
           return d['FemaleVictim(s)'] && d['FemaleVictim(s)'].toUpperCase() === 'YES';
+        }
+      },
+      minors: {
+        fn: function (d) {
+          return d['MinorsIncluded'] && d['MinorsIncluded'].toUpperCase() === 'YES';
+        }
+      },
+      femaleDefendant: {
+        fn: function (d) {
+          return d['FemaleDefendant(s)'] && d['FemaleDefendant(s)'].toUpperCase() === 'YES';
+        }
+      },
+      maleDefendant: {
+        fn: function (d) {
+          return d['MaleDefendant(s)'] && d['MaleDefendant(s)'].toUpperCase() === 'YES';
         }
       }
     };
@@ -134,9 +149,10 @@
     }
 
     // hook up check boxes to exploration map
-    $('#exploration-form').find('input[type="checkbox"]')
+    $('.exploration-form').find('input[type="checkbox"]')
     .on('change', function (e) {
       var target = $(e.currentTarget);
+      console.log(target);
       var dataValue = target.data('value');
       var filter = checkboxFilters[dataValue];
       filter.active = target.is(':checked');
@@ -187,6 +203,9 @@
               caseContent.append($('<h3 />', {
                 text: d['Case']
               }));
+              caseContent.append($('<em />', {
+                text: d['Court']
+              }));
               caseContent.append($('<p />', {
                 text: d['FactSummary']
               }));
@@ -195,7 +214,6 @@
               content.append(caseContent);
             });
           });
-          console.log(content);
           activeCasesContainer.html(content.html());
         }
 
@@ -264,7 +282,7 @@
             } else {
               //insert function that shows national statistics or example state
             };
-            
+
           };
         }
       });
