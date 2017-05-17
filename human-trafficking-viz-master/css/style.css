@@ -1,0 +1,235 @@
+
+body {
+  min-height: inherit;
+}
+
+#intro img {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: -1;
+}
+#intro {
+  background-image: url("../images/stripclub.jpg");
+  background-position: 0% 0%;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  text-align: center;
+  padding-top: 2vh;
+  color:tomato;
+  height: 100vh;
+  width: 100vw;
+  text-shadow: 1px 2px 5px blue;
+
+}
+
+#intro h2 {
+  margin: 0px;
+  font-weight: 600;
+  font-size: 5em;
+}
+#intro h4 {
+  font-size: 2.2em;
+  color: white;
+  text-shadow: 1px 1px 2px black;
+}
+
+.article_paragraph {
+  max-width: 600px;
+  margin: 18px auto;
+  width: 90%;
+}
+.svg_graphic {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#big-map-canvas {
+  width: 100%;
+  height: 100%;
+  background: #838383;
+  position:fixed;
+  /*top:0;*/
+  bottom: 0;
+  z-index:-99;
+}
+
+#wrapper {
+  position:absolute;
+  height:100%;
+  width:100%;
+}
+
+#big-map-canvas:hover {
+  cursor: inherit;
+}
+
+#exploration {
+  height:95vh;
+}
+
+article.container {
+  margin: 0;
+  background: #414142;
+  color: #d8d8d8;
+  opacity: 0.9;
+  width: 50%;
+  padding: 20px 0 0;
+  float: left;
+  max-width: 500px;
+}
+
+article p {
+  color: #d8d8d8;
+  width: 90%;
+  margin: 18px auto;
+  letter-spacing: 0.5px;
+  max-width: 550px;
+}
+
+article h1 {
+  color: #ffffff;
+  margin: 8px auto 2px;
+  text-align: center;
+}
+
+article h2, h4 {
+  width: 90%;
+  margin: 8px auto 2px;
+  color: #fff;
+}
+
+article h2.subhead {
+  color: #fff;
+  text-align: center;
+  margin: 32px auto 2px;
+}
+
+.centered-graphic {
+  max-width: 400px;
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+section,
+section:first-of-type {
+  margin-top: 100px;
+}
+
+section h2 i {
+  font-size: 24px;
+  margin: 0 0 0 6px;
+  display: none;
+}
+
+section h2 i.visible {
+  display: inline-block;
+}
+
+footer {
+  display: none;
+}
+
+.leaflet-control-zoom {
+  display: none;
+}
+
+.leaflet-container .leaflet-control-attribution {
+  background: none;
+  color: #d8d8d8;
+}
+
+.leaflet-container .leaflet-control-attribution a {
+  color: #d8d8d8;
+}
+
+#mainMap {
+  height: 50px;
+}
+@media(max-width: 500px) {
+  article.container {
+    margin-top: 200px;
+    background: none;
+    width: 100%;
+    opacity: 0.9;
+  }
+
+  article.container header, article.container section, article.container aside {
+    background: #414142;
+    margin: 0;
+    padding: 15px 0;
+  }
+
+  article p {
+    margin: 0 auto;
+    padding: 18px 0;
+  }
+
+  .hoodlabel {
+    font-size: 18px;
+    line-height: 18px;
+  }
+
+  .vis_bullet {
+    opacity: 0;
+  }
+
+  .leaflet-control-attribution, .leaflet-control-zoom {
+    display: none;
+  }
+}
+
+.stats {
+  text-align: left;
+  font-weight: bold;
+  font-size: 40px;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.questions {
+  color: black;
+}
+
+div.questions {
+    padding: 10px;
+    background-color: white;
+    display: none;
+} 
+
+ /* Style the buttons that are used to open and close the accordion panel */
+button.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.2s;
+}
+button.accordion:before {
+    content: '\02795'; /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    color: #777;
+    float: left;
+    margin-right: 5px;
+}
+
+button.accordion.active:before {
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+button.accordion.active, button.accordion:hover {
+    background-color: #ddd;
+}
+
+
