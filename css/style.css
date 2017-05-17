@@ -128,7 +128,7 @@ footer {
 #big-stats{
   color:tomato;
 }
- 
+
 table {
   width: 80%;
   margin: 0 auto 0 auto;
@@ -212,12 +212,13 @@ div.questions {
 
 /* Style the buttons that are used to open and close the accordion panel */
 button.accordion {
-  background-color: #eee;
-  color: #444;
+  background-color: #676767;
+  color: #fff;
   cursor: pointer;
   padding: 18px;
   width: 100%;
   text-align: left;
+  margin-bottom: 1px;
   border: none;
   outline: none;
   transition: 0.2s;
