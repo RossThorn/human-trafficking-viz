@@ -289,7 +289,7 @@
     };
 
     function displayStateStatistics(userState){
-      var csvStates = d3.csv("data/TotalCallsCases.csv", function(data){
+      var csvStates = d3.csv("Data/TotalCallsCases.csv", function(data){
 
         for (var i = 0, l = data.length; i < l; i++){
           var obj = data[i];
@@ -300,7 +300,7 @@
             .append("div")
             .attr("class","stats")
             .append("p")
-            .html("There were <span id='stats'>"+obj.calls+" calls </span> and <span id='stats'>"+obj.cases+" trafficking cases</span> reported in "+userState+" from 2012 to 2016.");
+            .html("There were <span id='big-stats'>"+obj.calls+" calls </span> and <span id='big-stats'>"+obj.cases+" trafficking cases</span> reported in "+userState+" from 2012 to 2016.");
           }
         };
       });
