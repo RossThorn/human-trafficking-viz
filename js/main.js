@@ -288,7 +288,6 @@
             var allStates = response.features;
             for (var i = 0, l = allStates.length; i < l; i++){
               var obj = allStates[i];
-              console.log(userState);
               if (obj.properties["State"] == userState){
                 console.log("Location in the US");
                 map.flyTo(new L.LatLng(obj.properties["latitude"],(obj.properties["longitude"]-5)), 6, {animate: true});
@@ -321,7 +320,6 @@
           var obj = data[i];
 
           if (obj.state == userState){
-            console.log(userState);
             var stateStats = d3.select("#where")
             .append("div")
             .attr("class","stats")
