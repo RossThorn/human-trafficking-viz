@@ -52,6 +52,8 @@
   var exploreWatcher = scrollMonitor.create($('#exploration'));
   //code watches for when the user scrolls to section1
   var whereWatcher = scrollMonitor.create($('#where'));
+  var statsWatcher = scrollMonitor.create($('#calls'));
+  var amberWatcher = scrollMonitor.create($('#amber'));
 
 
   //add 2016 call center data to map
@@ -94,13 +96,24 @@
     //return statement notifying when this happens
     whereWatcher.enterViewport(function () {
       //changes the scale and zoom location to user location
+      //map.flyTo(new L.LatLng(46,-94), 6, {animate: true});
+      callData2016.addTo(map);
+      //createCourts();
+      createDistricts();
+    });
+
+    statsWatcher.enterViewport(function () {
+      //changes the scale and zoom location to user location
       map.flyTo(new L.LatLng(46,-94), 6, {animate: true});
       if (pageCheck == 0){
         getUserLocation();
       };
-      callData2016.addTo(map);
-      //createCourts();
-      createDistricts();
+    });
+
+    //return statement notifying when this happens
+    amberWatcher.enterViewport(function () {
+      //changes the scale and zoom location to user location
+      map.flyTo(new L.LatLng(38.6,-92), 8, {animate: true});
     });
 
     //adds map layers when final section is in view
@@ -311,7 +324,7 @@
           var obj = data[i];
 
           if (obj.state == userState){
-            var stateStats = d3.select("#stateStats")
+            var stateStats = d3.select("#calls")
             .append("div")
             .attr("class","stats")
             .append("p")
