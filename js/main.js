@@ -288,7 +288,9 @@
             var allStates = response.features;
             for (var i = 0, l = allStates.length; i < l; i++){
               var obj = allStates[i];
+              console.log(userState);
               if (obj.properties["State"] == userState){
+                console.log("Location in the US");
                 map.flyTo(new L.LatLng(obj.properties["latitude"],(obj.properties["longitude"]-5)), 6, {animate: true});
                 if (pageCheck == 0){
                 displayStateStatistics(userState);
@@ -299,6 +301,7 @@
             }
 
             if (loopCheck == 0){
+              console.log("Location outside the US. Resetting proxy state.");
               map.flyTo(new L.LatLng( 44, -90), 6, {animate: true});
               var proxyState = "Wisconsin";
               displayStateStatistics(proxyState);
