@@ -97,7 +97,6 @@
       map.flyTo(new L.LatLng(46,-94), 6, {animate: true});
       if (pageCheck == 0){
         getUserLocation();
-        pageCheck = 1;
       };
       callData2016.addTo(map);
       createCourts();
@@ -259,7 +258,6 @@
 
 
     function getUserLocation(){
-      console.log("fired");
       //basic jQuery ajax method
       $.ajax("https://freegeoip.net/json/", {
         dataType: "json",
@@ -269,17 +267,11 @@
           var userState = response.region_name;
           console.log(userState);
           //Insert callback function to zoom to user location
-          //zoomtoUser(userLocation);
           zoomToUserState(userState);
         }
       });
     };
 
-    function zoomtoUser(userLocation, userState){
-      var latitude = userLocation[0];
-      var longitude = userLocation[1]-1;
-      map.flyTo(new L.LatLng(latitude, longitude), 8, {animate: true});
-    }
 
     function zoomToUserState(userState){
         $.ajax("Data/StateCentroid.geojson", {
