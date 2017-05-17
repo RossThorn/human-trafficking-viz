@@ -100,7 +100,7 @@
         pageCheck = 1;
       };
       callData2016.addTo(map);
-      createCourts();
+      //createCourts();
       createDistricts();
     });
 
@@ -110,11 +110,10 @@
       //changes the scale and zoom location to continental US
       map.flyTo(new L.LatLng(40, -125), 4, {animate: true});
       callData2016.remove();
-      createCourts();
+      //createCourts();
       createDistricts();
     });
     var circuitCourts, courtDistricts;
-    console.log(districts.features[0].properties.cases);
     // create configuration for checkboxes that
     // contain filters to control which data is active
     var checkboxFilters = {
@@ -186,21 +185,21 @@
     };
 
     //Add polygons of the human trafficing district court regions
-    function createDistricts(){
-      if (exploreWatcher.isInViewport === true && districts) {
-        //create a Leaflet GeoJSON layer and add it to the map
-        if (courtDistricts && typeof courtDistricts.remove === 'function') {
-          courtDistricts.remove();
-        }
-        courtDistricts = L.geoJson(districts, {
-          style: style
-        }).addTo(map);
-        updateActiveCases();
-
-      } else if  (typeof courtDistricts != 'undefined'){
-        courtDistricts.remove();
-      }
-    };
+        function createDistricts(){
+          console.log("layer1");
+          if (exploreWatcher.isInViewport === true && districts) {
+            //create a Leaflet GeoJSON layer and add it to the map
+            // if (courtDistricts && typeof courtDistricts.remove === 'function') {
+            //   courtDistricts.remove();
+            // }
+            courtDistricts = L.geoJson(districts, {
+              style: style
+            }).addTo(map);
+            updateActiveCases();
+          } else if  (typeof courtDistricts != 'undefined'){
+            courtDistricts.remove();
+          }
+        };
 
     //changes the text of the cases that fit the description based on user input (the sorted cases)
     function updateActiveCases () {
@@ -320,7 +319,7 @@
           var obj = data[i];
 
           if (obj.state == userState){
-            var stateStats = d3.select("#where")
+            var stateStats = d3.select("#stateStats")
             .append("div")
             .attr("class","stats")
             .append("p")

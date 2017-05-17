@@ -160,6 +160,12 @@ td {
   #intro {
     padding-top: 5vh;
   }
+  #exploration {
+    height:50vh;
+  }
+  #active-cases {
+    height: 25vh;
+  }
   article.container {
     margin-top: 200px;
     background: none;
