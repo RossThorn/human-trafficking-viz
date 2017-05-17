@@ -43,11 +43,6 @@ body {
 .article_paragraph {
   max-width: 600px;
   margin: 18px auto;
-  width: 90%;
-}
-.svg_graphic {
-  max-width: 600px;
-  margin: 0 auto;
 }
 
 #big-map-canvas {
@@ -80,19 +75,17 @@ article.container {
   color: #d8d8d8;
   opacity: 0.9;
   width: 50%;
-  padding: 0 5px 0 0;
+  max-width: 600px;
   float: left;
 }
 
-article p {
-  color: #d8d8d8;
-  width: 90%;
-  margin: 5px auto;
-  letter-spacing: 0.5px;
+article {
+  letter-spacing: .4px;
 }
 
 article h1 {
-  color: #ffffff;
+  color: tomato;
+  font-weight: bold;
   padding-bottom: 10px;
   text-align: center;
 }
@@ -107,13 +100,6 @@ article h2.subhead {
   color: #fff;
   text-align: center;
   margin: 32px auto 2px;
-}
-
-.centered-graphic {
-  max-width: 400px;
-  width: 100%;
-  display: block;
-  margin: 0 auto;
 }
 
 section,
@@ -147,23 +133,25 @@ footer {
     margin: 0 auto 0 auto;
   }
   td {
-    text-align: center;
+    text-align: left;
   }
   #active-cases {
+    margin-left: 10px;
 	  height: 50vh;
 	  overflow-y: scroll;
 	}
 
 /*mobile stylying*/
-@media(max-width: 500px) {
+@media(max-width: 600px) {
   .container{
-	    height: 50vh;
+    padding: 0 0 0 0;
+	    height: 52vh;
 	    position: absolute;
 	    bottom: 0px;
-	    overflow: scroll;
+	    overflow-y: scroll;
 	  }
 	  #big-map-canvas {
-	    height: 50vh;
+	    height: 45vh;
 	    position: absolute;
 	    top: 0px;
 	  }
@@ -211,13 +199,13 @@ footer {
 }
 
 /* Style the accordion panel. Note: hidden by default */
-.questions {
+.questions p, .questions ul {
   color: black;
 }
 
 div.questions {
     padding: 10px;
-    background-color: white;
+    background-color: whitesmoke;
     display: none;
 }
 
