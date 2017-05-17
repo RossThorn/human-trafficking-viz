@@ -21,11 +21,11 @@ body {
   -o-background-size: cover;
   background-size: cover;
   text-align: center;
-  padding-top: 2vh;
+  padding-top: 40vh;
   color:tomato;
   height: 100vh;
   width: 100vw;
-  text-shadow: 1px 2px 5px blue;
+  /*text-shadow: 1px 2px 5px blue;*/
 
 }
 
@@ -71,7 +71,7 @@ body {
 }
 
 #exploration {
-  height:95vh;
+  height:100vh;
 }
 
 article.container {
@@ -80,28 +80,26 @@ article.container {
   color: #d8d8d8;
   opacity: 0.9;
   width: 50%;
-  padding: 20px 0 0;
+  padding: 0 5px 0 0;
   float: left;
-  max-width: 500px;
 }
 
 article p {
   color: #d8d8d8;
   width: 90%;
-  margin: 18px auto;
+  margin: 5px auto;
   letter-spacing: 0.5px;
-  max-width: 550px;
 }
 
 article h1 {
   color: #ffffff;
-  margin: 8px auto 2px;
+  padding-bottom: 10px;
   text-align: center;
 }
 
 article h2, h4 {
   width: 90%;
-  margin: 8px auto 2px;
+  margin: 10px 0px 20px 20px;
   color: #fff;
 }
 
@@ -120,17 +118,7 @@ article h2.subhead {
 
 section,
 section:first-of-type {
-  margin-top: 100px;
-}
-
-section h2 i {
-  font-size: 24px;
-  margin: 0 0 0 6px;
-  display: none;
-}
-
-section h2 i.visible {
-  display: inline-block;
+  margin-top: 25px;
 }
 
 footer {
@@ -149,11 +137,40 @@ footer {
 .leaflet-container .leaflet-control-attribution a {
   color: #d8d8d8;
 }
+.stats {
+	  text-align: left;
+	  font-weight: bold;
+	  font-size: 40px;
+	}
+  table {
+    width: 80%;
+    margin: 0 auto 0 auto;
+  }
+  td {
+    text-align: center;
+  }
+  #active-cases {
+	  height: 50vh;
+	  overflow-y: scroll;
+	}
 
-#mainMap {
-  height: 50px;
-}
+/*mobile stylying*/
 @media(max-width: 500px) {
+  .container{
+	    height: 50vh;
+	    position: absolute;
+	    bottom: 0px;
+	    overflow: scroll;
+	  }
+	  #big-map-canvas {
+	    height: 50vh;
+	    position: absolute;
+	    top: 0px;
+	  }
+    #intro {
+      padding-top: 5vh;
+
+    }
   article.container {
     margin-top: 200px;
     background: none;
@@ -164,7 +181,7 @@ footer {
   article.container header, article.container section, article.container aside {
     background: #414142;
     margin: 0;
-    padding: 15px 0;
+    padding: 5px 0;
   }
 
   article p {
@@ -185,6 +202,7 @@ footer {
     display: none;
   }
 }
+/*end mobile styling*/
 
 .stats {
   text-align: left;
@@ -201,7 +219,7 @@ div.questions {
     padding: 10px;
     background-color: white;
     display: none;
-} 
+}
 
  /* Style the buttons that are used to open and close the accordion panel */
 button.accordion {
@@ -231,5 +249,3 @@ button.accordion.active:before {
 button.accordion.active, button.accordion:hover {
     background-color: #ddd;
 }
-
-
