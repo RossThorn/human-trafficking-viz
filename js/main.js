@@ -1,6 +1,6 @@
 (function(){
   var pageCheck = 0;
-
+  var loopCheck = 0;
   var map = L.map('big-map-canvas', {
     center: mapCenter (),
     zoom: mapZoom(),
@@ -282,24 +282,34 @@
     }
 
     function zoomToUserState(userState){
-      $.ajax("Data/StateCentroid.geojson", {
-        dataType: "json",
-        success: function(response){
-          var allStates = response.features;
-          for (var i = 0, l = allStates.length; i < l; i++){
-            var obj = allStates[i];
-            if (obj.properties["State"] == userState){
-              console.log("You can access the user state in the geojson centroid now");
-              map.flyTo(new L.LatLng(obj.properties["latitude"],(obj.properties["longitude"]-5)), 6, {animate: true});
-              displayStateStatistics(userState);
-            } else {
-              //insert function that shows national statistics or example state
+        $.ajax("Data/StateCentroid.geojson", {
+          dataType: "json",
+          success: function(response){
+            var allStates = response.features;
+            for (var i = 0, l = allStates.length; i < l; i++){
+              var obj = allStates[i];
+              if (obj.properties["State"] == userState){
+                map.flyTo(new L.LatLng(obj.properties["latitude"],(obj.properties["longitude"]-5)), 6, {animate: true});
+                if (pageCheck == 0){
+                displayStateStatistics(userState);
+                  pageCheck = 1;
+                  loopCheck = 1;
+                };
+              };
+            }
+
+            if (loopCheck == 0){
+              map.flyTo(new L.LatLng( 44, -90), 6, {animate: true});
+              var proxyState = "Wisconsin";
+              displayStateStatistics(proxyState);
+              pageCheck = 1;
+              loopCheck = 1;
             };
 
-          };
-        }
-      });
+          }
+        });
     };
+
 
     function displayStateStatistics(userState){
       var csvStates = d3.csv("Data/TotalCallsCases.csv", function(data){
