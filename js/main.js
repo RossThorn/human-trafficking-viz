@@ -255,6 +255,7 @@
           console.log(response);
           var userLocation = [response.latitude, response.longitude];
           var userState = response.region_name;
+          console.log(userState);
           //Insert callback function to zoom to user location
           //zoomtoUser(userLocation);
           zoomToUserState(userState);
