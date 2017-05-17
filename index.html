@@ -14,7 +14,7 @@
     <h2>Human Trafficking at Home</h2>
     <h4>Reporting and Legislating in the United States</h4>
   </div>
-  
+
   <div id="wrapper">
 
     <div id="big-map-canvas" class="leaflet-container leaflet-retina leaflet-fade-anim" tabindex="0"></div>
@@ -35,7 +35,7 @@
        <p>The story we are telling here is not one of where human trafficking is necessarily <i>happening</i>, but of where and how people like you are <a href="https://www.dhs.gov/blue-campaign/indicators-human-trafficking">recognizing the signs</a> of potential human trafficking occurrences and reporting them by making calls to the <a href="https://humantraffickinghotline.org/">National Hotline</a>. We are also sharing where a fraction of the human trafficking cases have made it to trial in the United States, thanks to the first-of-its-kind, <a href="https://www.unodc.org/cld/en/v3/htms/cldb/index.html">publicly available collection of case law</a>, emphasizing the stories and resolutions of human trafficking experiences within the United States. </p>
       </section>
 
-      <section class="center" id="story">
+      <section class="center" id="where">
         <h2><em>Amber* was a victim of human trafficking in the United States.</em></h2>
         <p>Amber lived with her cousin in St. Louis, Missouri. At 18 years old in 2008 and suffering from mental disabilities, she was persuaded by two sisters (American, 21 and 34 years of age) to move from her cousin’s apartment into their house on the 5200 block of Genevieve Avenue. The sisters had promised to take care of Amber and to help her to get her children back. Instead, they forced Amber into slavery, claiming that Amber must repay her own cousin’s contrived debt to one of the sisters. The sisters began stealing Amber’s monthly social security disability check. Amber was forced into prostitution on the street and from the house. She was also forced to do housework and suffered horrendous abuses, including being made to drink urine, perform acts of bestiality, being burned and gagged, tied to a chair, and left in the garage. A male housemate also forced Amber’s head into a bath full of water, and had concealed the crimes he was aware of from police on at least three occasions over two months.9 The sisters had threatened to hurt Amber’s mother and grandmother if she did not comply. In 2009, officers from the St. Louis Metro Police Department discovered Amber tied up in the garage. One of the sisters—as the primary perpetrator—claims to have been subjected to the same treatment by her own mother, and has lived in a world of drugs, abuse, and her own mental challenges since childhood. The three perpetrators were sentenced soon after pleading guilty, together amounting to 27.25 years to be spent in prison.<sup>10</sup><small><i> *Name is a pseudonym</i><a href="https://www.unodc.org/cld/case-law-doc/traffickingpersonscrimetype/usa/2005/united_states_v._wallace.html?lng=en&tmpl=htms"> (Case USA162)</a></small></p>
       </section>
@@ -54,7 +54,7 @@
         <button class="accordion"><i>Where does human trafficking happen in the U.S.?</i> <b>EVERYWHERE</b></button>
           <div class="questions">
             <p>The U.S. is a <b>source</b>, <b>transit</b>, and <b>destination</b> country for victims of human trafficking.<sup>1</sup> It occurs in small towns as well as large cities, online, along major transportation routes, at truck stops, at hair salons, at restaurants, to name just a few. It especially concentrates along <em>borders</em>, where legal jurisdictions vary. Human trafficking is a <em>network</em> facilitated through movement of individuals across borders at all scales, and victims are not static. Meanwhile, cybersex trafficking is without borders and astonishingly prevalent.<sup>11</sup> It is occurring right down your street, now, seen or unseen.</p>
-            <p> Trafficking occurs in both legal and illicit industries, including:<sup>1</sup> 
+            <p> Trafficking occurs in both legal and illicit industries, including:<sup>1</sup>
             <ul style="list-style-type:none">
               <li>hospitality</li>
               <li>sales crews</li>
@@ -73,7 +73,7 @@
             </ul>
             </p>
           </div>
-      
+
         <button class="accordion"><i>To whom is it happening now and who is at risk of being trafficked in the U.S.?</i> <b>ANYONE</b></button>
           <div class="questions">
             <p>Picture any face. Cases have been reported for every age, gender, sex, race, nationality or citizenship status. Particularly vulnerable populations in the United States include:<sup>1</sup>
@@ -102,7 +102,7 @@
               <ul style="list-style-type:none">
                 <li><b>$150,000,000,000</b> (150 billion) of illegal profits worldwide</li>
                 <li><b>$99,000,000,000</b> (99 billion) from commercial sexual exploitation + </li>
-                <li><b>$51,000,000,000</b> (51 billion) from forced economic exploitation: 
+                <li><b>$51,000,000,000</b> (51 billion) from forced economic exploitation:
                   <ul>
                     <li><i>$34,000,000,000</i> (34 billion) in construction, manufacturing, mining and utilities + </li>
                     <li><i>$9,000,000,000</i> (9 billion) in agriculture, including forestry and fishing + </li>
@@ -113,14 +113,27 @@
             </p>
             <p>Human traffickers perceive there to be little risk or deterrence to affect their criminal operations. This is why the rate of identifying and prosecuting cases needs to increase. Each of us is an important part of the solution.</p>
           </div>
-      
+
       </section>
+      <section class="center" id="exploration">
+         <h2>Section 3</h2>
+          <p>Navigation!</p>
+          <form id="exploration-form">
+           <input type="checkbox" data-value="maleVictim">
+              <label>Male Victim</label>
+            </input>
+            <input type="checkbox" data-value="femaleVictim">
+              <label>Female Victim</label>
+            </input>
+          </form>
+          <div id="active-cases"></div>
+        </section>
 
       <section class="center" id="help">
         <h1>HELP!</h1>
         <p><i><b>How am I helping already?</b></i></p>
         <ul style="list-style-type:none">
-          <li>By engaging with this map story! </li> 
+          <li>By engaging with this map story! </li>
           <p><li>And by spending a few moments thinking about what human trafficking victims are experiencing and what it would mean or be like if you fell victim. </li></p>
         </ul>
         <p><i><b>What else can I do to help?</b></i></p>
@@ -160,7 +173,7 @@
         <button class="accordion"><b>Report</b> signs or suspicions of human trafficking </button>
           <div class="questions">
             <p>You are the front lines. By recognizing the signs of human trafficking and potential victims, you are helping law enforcement rescue victims and you might save a life. </p>
-            <p>To report to the National Human Trafficking Hotline, call <b>1-888-373-7888</b> or text <b>HELP</b> or <b>INFO</b> to <b>BeFree (233733)</b>. The NHTH is a national, toll-free hotline available to answer calls from anywhere in the country, 24 hours a day, 7 days a week, every day of the year. </p> 
+            <p>To report to the National Human Trafficking Hotline, call <b>1-888-373-7888</b> or text <b>HELP</b> or <b>INFO</b> to <b>BeFree (233733)</b>. The NHTH is a national, toll-free hotline available to answer calls from anywhere in the country, 24 hours a day, 7 days a week, every day of the year. </p>
             <p><i><small>The NHTH is not a law enforcement or immigration authority and is operated by a NGO funded by the Federal government. </small></i></p>
           </div>
 
@@ -187,10 +200,10 @@
       <section class="center" id="disclaimer">
         <p><i><small>This is in no way a complete picture of these data in particular, of the experiences behind them, or of the multiplicities of realities surrounding this worldwide and domestically-driven industry of human trafficking within the U.S. It is an attempt to provide a new form of engagement with a small selection of the incredible resources and initiatives that exist today in the efforts against trafficking, focusing on the stories of victims. It is important to note that—due to its “hidden” and complex nature—human trafficking in the U.S. is recorded only in estimates and proxies. An accurate extent of its prevalence is lacking. The statistics and numbers used here reflect the best possible efforts by agencies in their missions. No offences were meant by the cartographers and we happily welcome and encourage constructive feedback. </small></i></p>
       </section>
-      
+
 <!--END OF TYPE CONTENT..................................................-->
 
-      <section class="center" id="sources"> 
+      <section class="center" id="sources">
         <h4>Sources</h4>
         <p>
           <ol type="1">
@@ -212,7 +225,7 @@
         <h4>Credits</h4>
         <p>Cover Photo Courtesy of <a target="blank" href="https://www.flickr.com/photos/55229469@N07/14299096409/">Forsaken Fotos</a></p>
       </section>
-    
+
     </article>
 
   <script src="lib/jquery-3.1.1.js" type="text/javascript"></script>

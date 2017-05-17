@@ -22,20 +22,20 @@
   var a;
 
   for (a = 0; a < acc.length; a++) {
-      acc[a].onclick = function(){
-          /* Toggle between adding and removing the "active" class,
-          to highlight the button that controls the panel */
-          this.classList.toggle("active");
+    acc[a].onclick = function(){
+      /* Toggle between adding and removing the "active" class,
+      to highlight the button that controls the panel */
+      this.classList.toggle("active");
 
-          /* Toggle between hiding and showing the active panel */
-          var questions = this.nextElementSibling;
-          if (questions.style.display === "block") {
-              questions.style.display = "none";
-          } else {
-              questions.style.display = "block";
-          }
+      /* Toggle between hiding and showing the active panel */
+      var questions = this.nextElementSibling;
+      if (questions.style.display === "block") {
+        questions.style.display = "none";
+      } else {
+        questions.style.display = "block";
       }
-  } 
+    }
+  }
 
   //create section watchers
   var exploreWatcher = scrollMonitor.create($('#exploration'));
@@ -89,8 +89,8 @@
         pageCheck = 1;
       };
       callData2016.addTo(map);
-      createCourts(courts);
-      createDistricts(districts);
+      createCourts();
+      createDistricts();
     });
 
     //adds map layers when final section is in view
@@ -99,15 +99,58 @@
       //changes the scale and zoom location to continental US
       map.flyTo(new L.LatLng( 40, -125), 4, {animate: true});
       callData2016.remove();
-      createCourts(courts);
-      createDistricts(districts);
+      createCourts();
+      createDistricts();
     });
     var circuitCourts, courtDistricts;
 
+    // create configuration for checkboxes that
+    // contain filters to control which data is active
+    var checkboxFilters = {
+      maleVictim: {
+        fn: function (d) {
+          return d['MaleVictim(s)'] && d['MaleVictim(s)'].toUpperCase() === 'YES';
+        }
+      },
+      femaleVictim: {
+        fn: function (d) {
+          return d['FemaleVictim(s)'] && d['FemaleVictim(s)'].toUpperCase() === 'YES';
+        }
+      }
+    };
+
+    // filter only active cases
+    function applyCheckboxFilters (cases) {
+      if (!cases || !cases.length) {
+        return [];
+      }
+      var active = cases;
+      for (var filter in checkboxFilters) {
+        if (checkboxFilters[filter].active) {
+          active = active.filter(checkboxFilters[filter].fn);
+        }
+      }
+      return active;
+    }
+
+    // hook up check boxes to exploration map
+    $('#exploration-form').find('input[type="checkbox"]')
+    .on('change', function (e) {
+      var target = $(e.currentTarget);
+      var dataValue = target.data('value');
+      var filter = checkboxFilters[dataValue];
+      filter.active = target.is(':checked');
+      createDistricts();
+    });
+
     //Add polygons of the human trafficing district court regions
-    function createCourts(courts){
+    function createCourts(){
       if (exploreWatcher.isInViewport === true) {
         //create a Leaflet GeoJSON layer and add it to the map
+        //create a Leaflet GeoJSON layer and add it to the map
+        if (circuitCourts && typeof circuitCourts.remove === 'function') {
+          circuitCourts.remove();
+        }
         circuitCourts = L.geoJson(courts, {
           style: style
         }).addTo(map);
@@ -116,21 +159,51 @@
       }
     };
 
-
     //Add polygons of the human trafficing district court regions
-    function createDistricts(districts, courts){
-      if (exploreWatcher.isInViewport === true) {
+    function createDistricts(){
+      if (exploreWatcher.isInViewport === true && districts) {
         //create a Leaflet GeoJSON layer and add it to the map
+        if (courtDistricts && typeof courtDistricts.remove === 'function') {
+          courtDistricts.remove();
+        }
         courtDistricts = L.geoJson(districts, {
           style: style
         }).addTo(map);
+        updateActiveCases();
 
       } else if  (typeof courtDistricts != 'undefined'){
         courtDistricts.remove();
       }
     };
-    //find the max number of cases in a single district for the entire dataset
-    var max = d3.max(districts.features.map(function (feature) { return feature.properties.cases.length; }));
+    function updateActiveCases () {
+          var activeCasesContainer = $('#active-cases');
+          var content = $('<div />');
+          districts.features.forEach(function (feature) {
+            var cases = applyCheckboxFilters(feature.properties.cases);
+            cases.forEach(function (d) {
+              var caseContent = $('<div />', {
+                class: 'active-case'
+              });
+              caseContent.append($('<h3 />', {
+                text: d['Case']
+              }));
+              caseContent.append($('<p />', {
+                text: d['FactSummary']
+              }));
+              // caseContent.text(d['FactSummary']);
+              // caseContent.addClass('active-case');
+              content.append(caseContent);
+            });
+          });
+          console.log(content);
+          activeCasesContainer.html(content.html());
+        }
+
+        //find the max number of cases in a single district for the entire dataset
+        var max = d3.max(districts.features.map(function (feature) {
+          return applyCheckboxFilters(feature.properties.cases).length;
+        }));
+
 
     //creates styles for use in the two court layers
     function style(feature) {
@@ -148,17 +221,17 @@
           opacity: 1,
           color: 'tomato',
           //this fill opacity will need to be set based on a function that determines opacity by returning a number between 1 and 0
-          fillOpacity: parseFloat(feature.properties.cases.length / (max/2)),
+           fillOpacity: parseFloat(applyCheckboxFilters(feature.properties.cases).length / (max/2)),
           fillColor: 'tomato'
         };
       }
     }
 
 
-function getUserLocation(){
-    console.log("fired");
-    //basic jQuery ajax method
-    $.ajax("https://freegeoip.net/json/", {
+    function getUserLocation(){
+      console.log("fired");
+      //basic jQuery ajax method
+      $.ajax("https://freegeoip.net/json/", {
         dataType: "json",
         success: function(response){
           console.log(response);
@@ -168,53 +241,53 @@ function getUserLocation(){
           //zoomtoUser(userLocation);
           zoomToUserState(userState);
         }
-    });
-};
-
-function zoomtoUser(userLocation, userState){
-    var latitude = userLocation[0];
-    var longitude = userLocation[1]-1;
-    map.flyTo(new L.LatLng(latitude, longitude), 8, {animate: true});
-}
-
-function zoomToUserState(userState){
-    $.ajax("Data/StateCentroid.geojson", {
-      dataType: "json",
-      success: function(response){
-        var allStates = response.features;
-        for (var i = 0, l = allStates.length; i < l; i++){
-          var obj = allStates[i];
-          if (obj.properties["State"] == userState){
-            console.log("You can access the user state in the geojson centroid now");
-            map.flyTo(new L.LatLng(obj.properties["latitude"],(obj.properties["longitude"]-5)), 6, {animate: true});
-            displayStateStatistics(userState);
-          } else {
-            //insert function that shows national statistics or example state
-          };
-
-        };
-      }
-    });
-};
-
-function displayStateStatistics(userState){
-  var csvStates = d3.csv("data/TotalCallsCases.csv", function(data){
-
-    for (var i = 0, l = data.length; i < l; i++){
-      var obj = data[i];
-
-      if (obj.state == userState){
-        console.log(userState);
-        var stateStats = d3.select("#where")
-                        .append("div")
-                        .attr("class","stats")
-                        .append("p")
-                        .html("There were <span id='stats'>"+obj.calls+" calls </span> and <span id='stats'>"+obj.cases+" trafficking cases</span> reported in "+userState+" from 2012 to 2016.");
-      }
+      });
     };
-  });
 
-};
+    function zoomtoUser(userLocation, userState){
+      var latitude = userLocation[0];
+      var longitude = userLocation[1]-1;
+      map.flyTo(new L.LatLng(latitude, longitude), 8, {animate: true});
+    }
+
+    function zoomToUserState(userState){
+      $.ajax("Data/StateCentroid.geojson", {
+        dataType: "json",
+        success: function(response){
+          var allStates = response.features;
+          for (var i = 0, l = allStates.length; i < l; i++){
+            var obj = allStates[i];
+            if (obj.properties["State"] == userState){
+              console.log("You can access the user state in the geojson centroid now");
+              map.flyTo(new L.LatLng(obj.properties["latitude"],(obj.properties["longitude"]-5)), 6, {animate: true});
+              displayStateStatistics(userState);
+            } else {
+              //insert function that shows national statistics or example state
+            };
+            
+          };
+        }
+      });
+    };
+
+    function displayStateStatistics(userState){
+      var csvStates = d3.csv("data/TotalCallsCases.csv", function(data){
+
+        for (var i = 0, l = data.length; i < l; i++){
+          var obj = data[i];
+
+          if (obj.state == userState){
+            console.log(userState);
+            var stateStats = d3.select("#where")
+            .append("div")
+            .attr("class","stats")
+            .append("p")
+            .html("There were <span id='stats'>"+obj.calls+" calls </span> and <span id='stats'>"+obj.cases+" trafficking cases</span> reported in "+userState+" from 2012 to 2016.");
+          }
+        };
+      });
+
+    };
 
   };
 })();
