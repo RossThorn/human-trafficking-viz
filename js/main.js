@@ -106,7 +106,6 @@
 
     statsWatcher.enterViewport(function () {
       //changes the scale and zoom location to user location
-      map.flyTo(new L.LatLng(46,-94), 6, {animate: true});
       if (pageCheck == 0){
         getUserLocation();
       };
