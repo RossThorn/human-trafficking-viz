@@ -291,7 +291,7 @@
 
             if (loopCheck == 0){
               console.log("Location outside the US. Resetting proxy state.");
-              map.flyTo(new L.LatLng( 44, -91), 6, {animate: true});
+              map.flyTo(new L.LatLng( 44, -93), 6, {animate: true});
               var proxyState = "Wisconsin";
               displayStateStatistics(proxyState);
               pageCheck = 1;
