@@ -106,9 +106,9 @@
 
     statsWatcher.enterViewport(function () {
       //changes the scale and zoom location to user location
-      if (pageCheck == 0){
+
         getUserLocation();
-      };
+
     });
 
     //return statement notifying when this happens
