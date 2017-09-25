@@ -68,13 +68,15 @@
   .defer(d3.json, "data/CircutCourts.geojson")
   .await(callback);
 
-
-
   //cleans up text because we entered it all manually
   function sanitize (word) {
     return word.toLowerCase().trim().split(' ').join('_');
   };
 
+  //shortens text blocks by a max word count
+  function truncate (string) {
+    return string.split(' ').slice(0, 50).join(' ') + '...';
+  }
 
   function callback (error, caseStories, districts, courts){
     //joining data to court district polygons
@@ -215,15 +217,39 @@
           caseContent.append($('<em />', {
             text: d['Court']
           }));
+          var factSummary = d.FactSummary;
+          var truncatedSummary = truncate(factSummary);
+          var id = 'fact_summary_' + d.Case;
           caseContent.append($('<p />', {
-            text: d['FactSummary']
+            text: truncatedSummary,
+            class: 'active-case-summary',
+            'data-open': false,
+            id: id
           }));
-          // caseContent.text(d['FactSummary']);
-          // caseContent.addClass('active-case');
+          var showMore = $('<a />', {
+            text: 'Show More',
+            //building out the toggle to go between full text and truncated
+            click: function (e) {
+              var target = $('#' + id);
+              var link = $(e.currentTarget);
+              var open = target.data('open');
+              if (open) {
+                target.text(truncatedSummary);
+                link.text('Show More');
+              } else {
+                target.text(factSummary);
+                link.text('Show Less');
+              }
+              target.data('open', !open);
+            }
+          });
+          caseContent.append(showMore);
           content.append(caseContent);
         });
       });
-      activeCasesContainer.html(content.html());
+      activeCasesContainer.empty().append(content);
+
+
     }
 
     //find the max number of cases in a single district for the entire dataset

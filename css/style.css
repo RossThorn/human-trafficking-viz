@@ -142,7 +142,7 @@ td {
 }
 #active-cases {
   margin-left: 10px;
-  height: 60vh;
+  /*height: 60vh;*/
   overflow-y: scroll;
   border-color: white;
   border-width: medium;
