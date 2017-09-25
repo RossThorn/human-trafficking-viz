@@ -79,6 +79,8 @@
   }
 
   function callback (error, caseStories, districts, courts){
+    var filteredDistricts = [];
+
     //joining data to court district polygons
     for (var k = 0; k < districts.features.length; k++) {
       districts.features[k].properties.cases = []
@@ -159,20 +161,6 @@
       }
     };
 
-    // filter only active cases
-    function applyCheckboxFilters (cases) {
-      if (!cases || !cases.length) {
-        return [];
-      }
-      var active = cases;
-      for (var filter in checkboxFilters) {
-        if (checkboxFilters[filter].active) {
-          active = active.filter(checkboxFilters[filter].fn);
-        }
-      }
-      return active;
-    }
-
     // hook up check boxes to exploration map
     $('.exploration-form').find('input[type="checkbox"]')
     .on('change', function (e) {
@@ -182,6 +170,63 @@
       filter.active = target.is(':checked');
       createDistricts();
     });
+
+    //create the button
+    var btn = document.querySelector('input[type="button"]');
+    btn.addEventListener('click', uncheckAll);
+
+    //find the max number of cases in a single district for the entire dataset
+    var max = d3.max(districts.features.map(function (feature) {
+      return applyCheckboxFilters(feature.properties.cases).length;
+    }));
+
+    var dropdownOptions = [];
+    caseStories.forEach(function (c) {
+      var court = c.Court;
+      if (dropdownOptions.indexOf(court) === -1) {
+        dropdownOptions.push(court);
+      }
+    });
+    var districtSelect = $('<select />', {
+      'data-placeholder': 'Select a District',
+      class: 'chosen-select',
+      multiple: true
+    });
+    dropdownOptions.forEach(function (district) {
+      districtSelect.append($('<option />', {
+        text: district
+      }));
+    });
+
+    var dropdownContainer = $('#district-dropdown');
+    dropdownContainer.append(districtSelect);
+    $('.chosen-select').chosen().change(function (e) {
+      var selected = dropdownContainer.find('.result-selected')
+      .map((function () {
+        return $(this).text();
+      })).get();
+      filteredDistricts = selected;
+      createDistricts();
+    });
+
+    // filter only active cases
+    function applyCheckboxFilters (cases) {
+      if (!cases || !cases.length) {
+        return [];
+      }
+      var active = cases.slice();
+      for (var filter in checkboxFilters) {
+        if (checkboxFilters[filter].active) {
+          active = active.filter(checkboxFilters[filter].fn);
+        }
+      }
+      if (filteredDistricts.length) {
+        active = active.filter(function (c) {
+          return filteredDistricts.indexOf(c.Court) >= 0;
+        })
+      }
+      return active;
+    }
 
     //Add polygons of the human trafficing district court regions
     function createDistricts(){
@@ -209,10 +254,6 @@
       }
       createDistricts();
     }
-
-    //create the button
-    var btn = document.querySelector('input[type="button"]');
-    btn.addEventListener('click', uncheckAll);
 
     //changes the text of the cases that fit the description based on user input (the sorted cases)
     function updateActiveCases () {
@@ -265,12 +306,6 @@
 
 
     }
-
-    //find the max number of cases in a single district for the entire dataset
-    var max = d3.max(districts.features.map(function (feature) {
-      return applyCheckboxFilters(feature.properties.cases).length;
-    }));
-
 
     //creates styles for use in the two court layers
     function style(feature) {
