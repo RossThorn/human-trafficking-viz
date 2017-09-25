@@ -4,8 +4,8 @@ body {
 }
 
 a {
-color: #5996b2;
-text-decoration: none;
+  color: #5996b2;
+  text-decoration: none;
 }
 
 table {
@@ -84,13 +84,17 @@ td {
 }
 
 .active-case em {
-padding-bottom: 10px;
-display: inline-block;
+  padding-bottom: 10px;
+  display: inline-block;
 }
 
 .active-case a {
   color: tomato;
   cursor: pointer;
+}
+
+.resetButton {
+  color: black;
 }
 
 article.container {

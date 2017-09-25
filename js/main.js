@@ -109,7 +109,7 @@
     statsWatcher.enterViewport(function () {
       //changes the scale and zoom location to user location
 
-        getUserLocation();
+      getUserLocation();
 
     });
 
@@ -127,6 +127,7 @@
       callData2016.remove();
       createDistricts();
     });
+
     var circuitCourts, courtDistricts;
     // create configuration for checkboxes that
     // contain filters to control which data is active
@@ -182,7 +183,6 @@
       createDistricts();
     });
 
-
     //Add polygons of the human trafficing district court regions
     function createDistricts(){
       if (districts) {
@@ -201,10 +201,24 @@
       }
     };
 
+    //uncheck all check boxes
+    function uncheckAll(){
+      $('#exploration').find('input[type="checkbox"]:checked').prop('checked',false);
+      for (var filter in checkboxFilters) {
+        checkboxFilters[filter].active = false;
+      }
+      createDistricts();
+    }
+
+    //create the button
+    var btn = document.querySelector('input[type="button"]');
+    btn.addEventListener('click', uncheckAll);
+
     //changes the text of the cases that fit the description based on user input (the sorted cases)
     function updateActiveCases () {
       var activeCasesContainer = $('#active-cases');
       var content = $('<div />');
+
       districts.features.forEach(function (feature) {
         var cases = applyCheckboxFilters(feature.properties.cases);
         cases.forEach(function (d) {
@@ -298,34 +312,34 @@
 
 
     function zoomToUserState(userState){
-        $.ajax("Data/StateCentroid.geojson", {
-          dataType: "json",
-          success: function(response){
-            var allStates = response.features;
-            for (var i = 0, l = allStates.length; i < l; i++){
-              var obj = allStates[i];
-              if (obj.properties["State"] == userState){
-                console.log("Location in the US");
-                map.flyTo(new L.LatLng(obj.properties["latitude"],(obj.properties["longitude"]-5)), 6, {animate: true});
-                if (pageCheck == 0){
+      $.ajax("Data/StateCentroid.geojson", {
+        dataType: "json",
+        success: function(response){
+          var allStates = response.features;
+          for (var i = 0, l = allStates.length; i < l; i++){
+            var obj = allStates[i];
+            if (obj.properties["State"] == userState){
+              console.log("Location in the US");
+              map.flyTo(new L.LatLng(obj.properties["latitude"],(obj.properties["longitude"]-5)), 6, {animate: true});
+              if (pageCheck == 0){
                 displayStateStatistics(userState);
-                  pageCheck = 1;
-                  loopCheck = 1;
-                };
+                pageCheck = 1;
+                loopCheck = 1;
               };
-            }
-
-            if (loopCheck == 0){
-              console.log("Location outside the US. Resetting proxy state.");
-              map.flyTo(new L.LatLng( 44, -95), 6, {animate: true});
-              var proxyState = "Wisconsin";
-              displayStateStatistics(proxyState);
-              pageCheck = 1;
-              loopCheck = 1;
             };
-
           }
-        });
+
+          if (loopCheck == 0){
+            console.log("Location outside the US. Resetting proxy state.");
+            map.flyTo(new L.LatLng( 44, -95), 6, {animate: true});
+            var proxyState = "Wisconsin";
+            displayStateStatistics(proxyState);
+            pageCheck = 1;
+            loopCheck = 1;
+          };
+
+        }
+      });
     };
 
 
