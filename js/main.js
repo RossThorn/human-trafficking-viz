@@ -185,7 +185,7 @@
 
     //Add polygons of the human trafficing district court regions
     function createDistricts(){
-      if (exploreWatcher.isInViewport === true && districts) {
+      if (districts) {
         //create a Leaflet GeoJSON layer and add it to the map
         if (courtDistricts && typeof courtDistricts.remove === 'function') {
           courtDistricts.remove();

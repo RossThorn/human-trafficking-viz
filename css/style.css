@@ -5,6 +5,15 @@ body {
 
 a {
 color: #5996b2;
+text-decoration: none;
+}
+
+table {
+  width: 80%;
+  margin: 0 auto 0 auto;
+}
+td {
+  text-align: left;
 }
 
 #intro img {
@@ -52,7 +61,7 @@ color: #5996b2;
   height: 100%;
   background: #838383;
   position:fixed;
-  /*top:0;*/
+  top:0;
   bottom: 0;
   z-index:-99;
 }
@@ -67,8 +76,21 @@ color: #5996b2;
   cursor: inherit;
 }
 
-#exploration {
-  height:100vh;
+#active-cases {
+  padding: 0px 10px;
+  height: 60vh;
+  overflow-y: scroll;
+  background-color: #676767;
+}
+
+.active-case em {
+padding-bottom: 10px;
+display: inline-block;
+}
+
+.active-case a {
+  color: tomato;
+  cursor: pointer;
 }
 
 article.container {
@@ -81,7 +103,7 @@ article.container {
 }
 
 article {
-  letter-spacing: .4px;
+  letter-spacing: .2px;
 }
 
 article h1 {
@@ -103,8 +125,7 @@ article h2.subhead {
   margin: 32px auto 2px;
 }
 
-section,
-section:first-of-type {
+section {
   margin-top: 25px;
 }
 
@@ -133,21 +154,57 @@ footer {
   color:tomato;
 }
 
-table {
-  width: 80%;
-  margin: 0 auto 0 auto;
-}
-td {
+.stats {
   text-align: left;
+  font-weight: bold;
+  font-size: 40px;
 }
-#active-cases {
-  margin-left: 10px;
-  /*height: 60vh;*/
-  overflow-y: scroll;
-  border-color: white;
-  border-width: medium;
+
+/* Style the accordion panel. Note: hidden by default */
+.questions p, .questions ul {
+  color: black;
+}
+
+div.questions {
+  padding: 10px;
+  background-color: #cecece;
+  display: none;
+}
+
+/* Style the buttons that are used to open and close the accordion panel */
+button.accordion {
   background-color: #676767;
+  color: #fff;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 1px;
+  border: none;
+  outline: none;
+  transition: 0.2s;
 }
+button.accordion:before {
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: #777;
+  float: left;
+  margin-right: 5px;
+}
+
+button.accordion.active:before {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+button.accordion.active, button.accordion:hover {
+  background-color: #777;
+}
+
+.highlight {
+  color:tomato;
+}
+
 
 /*mobile stylying*/
 @media(max-width: 600px) {
@@ -205,54 +262,3 @@ td {
   }
 }
 /*end mobile styling*/
-
-.stats {
-  text-align: left;
-  font-weight: bold;
-  font-size: 40px;
-}
-
-/* Style the accordion panel. Note: hidden by default */
-.questions p, .questions ul {
-  color: black;
-}
-
-div.questions {
-  padding: 10px;
-  background-color: #cecece;
-  display: none;
-}
-
-/* Style the buttons that are used to open and close the accordion panel */
-button.accordion {
-  background-color: #676767;
-  color: #fff;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  text-align: left;
-  margin-bottom: 1px;
-  border: none;
-  outline: none;
-  transition: 0.2s;
-}
-button.accordion:before {
-  content: '\02795'; /* Unicode character for "plus" sign (+) */
-  font-size: 13px;
-  color: #777;
-  float: left;
-  margin-right: 5px;
-}
-
-button.accordion.active:before {
-  content: "\2796"; /* Unicode character for "minus" sign (-) */
-}
-
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-button.accordion.active, button.accordion:hover {
-  background-color: #777;
-}
-
-#highlight {
-  color:tomato;
-}
