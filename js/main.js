@@ -347,8 +347,8 @@
         success: function(response){
           console.log(response);
           var userLocation = [response.latitude, response.longitude];
-          var userState = "District of Columbia";
-          // var userState = response.region_name;
+
+          var userState = response.region_name;
           console.log(userState);
           //Insert callback function to zoom to user location
           zoomToUserState(userState);
@@ -400,12 +400,11 @@
           searchState += splitState[i];
         }
       };
-      console.log(searchState);
+
       var csvStates = d3.csv("Data/TotalCallsCases.csv", function(data){
 
         for (var i = 0, l = data.length; i < l; i++){
           var obj = data[i];
-          console.log(obj.state);
 
           if (obj.state == searchState){
             var stateStats = d3.select("#calls")
