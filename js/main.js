@@ -188,7 +188,7 @@
       }
     });
     var districtSelect = $('<select />', {
-      'data-placeholder': 'Select a District',
+      'data-placeholder': 'Select a Court(s)',
       class: 'chosen-select',
       multiple: true
     });

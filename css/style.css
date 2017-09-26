@@ -137,6 +137,11 @@ footer {
   display: none;
 }
 
+.chosen-container {
+  width: 100% !important;
+  padding-bottom: 10px;
+}
+
 .leaflet-control-zoom {
   display: none;
 }
@@ -214,23 +219,18 @@ button.accordion.active, button.accordion:hover {
 @media(max-width: 600px) {
   .container {
     padding: 0 0 0 0;
-    height: 50vh;
+    height: 50%;
     position: absolute;
     bottom: 0px;
     overflow-y: scroll;
     overflow-x: hidden;
   }
   #big-map-canvas {
-    height: 50vh;
+    height: 50%;
     position: absolute;
     top: 0px;
   }
-  #intro {
-    padding-top: 5vh;
-  }
-  #exploration {
-    height:50vh;
-  }
+
   #active-cases {
     height: 25vh;
   }
