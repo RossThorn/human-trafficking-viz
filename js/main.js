@@ -104,6 +104,16 @@
       callData2016.addTo(map);
       if (jsonCheck == 1){
         courtDistricts.remove();
+
+        //var boxes = document.getElementsByTagName('input');
+        // for (var i = 0, l = boxes.length; i < l; i++){
+        //   console.log(boxes[i]);
+        //   if (boxes[i].checked == true){
+        //     console.log("dis is checked");
+        //     boxes[i].checked = false;
+        //   }
+        // };
+
         jsonCheck = 0;
       };
     });
@@ -337,7 +347,8 @@
         success: function(response){
           console.log(response);
           var userLocation = [response.latitude, response.longitude];
-          var userState = response.region_name;
+          var userState = "District of Columbia";
+          // var userState = response.region_name;
           console.log(userState);
           //Insert callback function to zoom to user location
           zoomToUserState(userState);
@@ -379,12 +390,24 @@
 
 
     function displayStateStatistics(userState){
+      var splitState = userState.split(" ");
+      for (var i = 0, l = splitState.length; i<l; i++){
+        if (i == 0){
+          searchState = splitState[i];
+        }
+        else{
+          searchState += "-";
+          searchState += splitState[i];
+        }
+      };
+      console.log(searchState);
       var csvStates = d3.csv("Data/TotalCallsCases.csv", function(data){
 
         for (var i = 0, l = data.length; i < l; i++){
           var obj = data[i];
+          console.log(obj.state);
 
-          if (obj.state == userState){
+          if (obj.state == searchState){
             var stateStats = d3.select("#calls")
             .append("div")
             .attr("class","stats")
