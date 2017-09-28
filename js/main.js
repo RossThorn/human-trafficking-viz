@@ -254,6 +254,8 @@
       } else if  (typeof courtDistricts != 'undefined'){
         courtDistricts.remove();
       }
+      console.log(courtDistricts);
+
     };
 
     //uncheck all check boxes
