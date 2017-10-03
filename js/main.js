@@ -198,7 +198,7 @@
       }
     });
     var districtSelect = $('<select />', {
-      'data-placeholder': 'Select a Court(s)',
+      'data-placeholder': 'Select Court(s)',
       class: 'chosen-select',
       multiple: true
     });
