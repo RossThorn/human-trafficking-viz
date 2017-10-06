@@ -219,6 +219,7 @@
       createDistricts();
     });
 
+
     // filter only active cases
     function applyCheckboxFilters (cases) {
       if (!cases || !cases.length) {

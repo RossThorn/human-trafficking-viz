@@ -42,6 +42,7 @@ td {
 
 #intro h2 {
   margin: 0px;
+  padding: 0px;
   font-weight: 600;
   font-size: 5em;
   text-shadow: 2px 2px 2px black;
@@ -50,6 +51,9 @@ td {
   font-size: 2.2em;
   color: white;
   text-shadow: 1px 1px 2px black;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
 }
 
 .article_paragraph {
