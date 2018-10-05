@@ -345,7 +345,7 @@
 
     function getUserLocation(){
       //basic jQuery ajax method
-      $.ajax("http://api.ipstack.com/186.116.207.169?access_key=c8e1b7c33ba249471f6752afecf84533&output=json&legacy=1", {
+      $.ajax("http://api.ipstack.com/check?access_key=c8e1b7c33ba249471f6752afecf84533&output=json&legacy=1", {
         dataType: "json",
         success: function(response){
           console.log(response);
