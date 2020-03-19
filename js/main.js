@@ -120,8 +120,7 @@
 
     statsWatcher.enterViewport(function () {
       //changes the scale and zoom location to user location
-
-      getUserLocation();
+      getUserIP();
 
     });
 
@@ -342,22 +341,38 @@
       }
     }
 
-
-    function getUserLocation(){
-      //basic jQuery ajax method
-      $.ajax("http://api.ipstack.com/check?access_key=c8e1b7c33ba249471f6752afecf84533&output=json&legacy=1", {
+    function getUserIP(){
+      $.ajax("https://api.ipify.org?format=json", {
         dataType: "json",
         success: function(response){
           console.log(response);
-          var userLocation = [response.latitude, response.longitude];
+          getUserLocation(response.ip)
 
-          var userState = response.region_name;
+      },
+      error: function(){
+        console.log("API could not be reached. Setting proxy state.");
+        zoomToUserState("Wisconsin")
+      }
+      });
+
+    }
+
+
+    function getUserLocation(ip){
+      //basic jQuery ajax method
+      $.ajax("https://ipapi.co/"+ip+"/json/", {
+        dataType: "json",
+        success: function(response){
+          console.log(response);
+          // var userLocation = [response.latitude, response.longitude];
+
+          var userState = response.region;
           console.log(userState);
           //Insert callback function to zoom to user location
           zoomToUserState(userState);
         },
         error: function(){
-          console.log("API could not be reached. Setting proxy state.");
+          console.log("Error with retrieving IP. Setting proxy state.");
           zoomToUserState("Wisconsin")
         }
       });
